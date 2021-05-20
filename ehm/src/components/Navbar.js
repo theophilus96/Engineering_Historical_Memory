@@ -20,7 +20,11 @@ export default function Navbar() {
         <div className="container">
           {/* Brand */}
           <Link to="/" className="navbar-brand">
-            <img src={} className="navbar-brand-img" alt="..." />
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/engineeringhistoricalmem-27d5c.appspot.com/o/images%2Flogo%2Fhome.png?alt=media&token=66f8d160-4832-4f6f-ba24-f8ea6bc6e671"
+              className="navbar-brand-img"
+              alt="..."
+            />
           </Link>
 
           {/* Toggler */}
