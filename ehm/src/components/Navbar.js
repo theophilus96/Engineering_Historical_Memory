@@ -13,6 +13,7 @@ export default function Navbar() {
       auth.signOut();
     }
   };
+
   return (
     <div>
       {/* NAVBAR */}
@@ -21,7 +22,7 @@ export default function Navbar() {
           {/* Brand */}
           <Link to="/" className="navbar-brand">
             <img
-              src="https://firebasestorage.googleapis.com/v0/b/engineeringhistoricalmem-27d5c.appspot.com/o/images%2Flogo%2Fhome.png?alt=media&token=66f8d160-4832-4f6f-ba24-f8ea6bc6e671"
+              src="https://firebasestorage.googleapis.com/v0/b/engineeringhistoricalmem-27d5c.appspot.com/o/images%2Flogo%2Flogo.gif?alt=media&token=eb38ce85-0b6c-4843-8dd2-c785db427956"
               className="navbar-brand-img"
               alt="..."
             />

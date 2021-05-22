@@ -7,6 +7,8 @@ import React, { useEffect } from "react";
 import { useStateValue } from "./state/StateProvider";
 import { auth } from "./firebase/config";
 import Navbar from "./components/Navbar";
+//pages
+import Home from "./pages/Home";
 
 function App() {
   const [{}, dispatch] = useStateValue();
@@ -33,7 +35,9 @@ function App() {
     <div className="App">
       <Router>
         <Navbar />
-        <Switch></Switch>
+        <Switch>
+          <Route exact path="/" component={Home} />
+        </Switch>
       </Router>
     </div>
   );
