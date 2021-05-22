@@ -5,29 +5,13 @@ export default function Category() {
     <div>
       <section className="pt-7 pt-md-10 bg-light">
         <div className="container">
-          {/* <div className="row align-items-center mb-5">
-            <div className="col-12 col-md">
-              <h3 className="mb-0">Related Work</h3>
-              <p className="mb-0 text-muted">
-                Other goodies that are similar to this one.
-              </p>
-            </div>
-            <div className="col-12 col-md-auto">
-              <a
-                href="#!"
-                className="btn btn-sm btn-outline-gray-300 d-none d-md-inline"
-              >
-                View all
-              </a>
-            </div>
-          </div> */}
           <div className="row">
             <div className="col-12 col-md-6 col-lg-4 d-flex">
               <a className="card mb-6 mb-lg-0 shadow-light-lg" href="#!">
                 <div className="card-zoom">
                   <img
                     className="card-img-top"
-                    src="assets/img/portfolio/portfolio-1.jpg"
+                    src="https://engineeringhistoricalmemory.com/Images/apps/Afro-eurasia.png"
                     alt="..."
                   />
                 </div>
@@ -57,7 +41,7 @@ export default function Category() {
                 <div className="card-zoom">
                   <img
                     className="card-img-top"
-                    src="assets/img/portfolio/portfolio-2.jpg"
+                    src="https://engineeringhistoricalmemory.com/Images/apps/Aggregator.png"
                     alt="..."
                   />
                 </div>
@@ -87,7 +71,7 @@ export default function Category() {
                 <div className="card-zoom">
                   <img
                     className="card-img-top"
-                    src="assets/img/portfolio/portfolio-4.jpg"
+                    src="https://engineeringhistoricalmemory.com/Images/apps/Bosch.jpg"
                     alt="..."
                   />
                 </div>
