@@ -17,7 +17,7 @@ export default function Navbar() {
   return (
     <div>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg navbar-dark navbar-togglable fixed-top">
+      <nav className="navbar navbar-expand-lg navbar-dark navbar-togglable fixed-top border-bottom-dark">
         <div className="container">
           {/* Brand */}
           <Link to="/" className="navbar-brand">

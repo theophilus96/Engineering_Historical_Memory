@@ -10,6 +10,7 @@ import { auth } from "./firebase/config";
 import Navbar from "./components/Navbar";
 //pages
 import Home from "./pages/Home";
+import ArticlesList from "./pages/ArticlesList";
 
 function App() {
   useEffect(() => {
@@ -42,6 +43,7 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/:id" component={ArticlesList} />
         </Switch>
       </Router>
     </div>

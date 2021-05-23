@@ -4,6 +4,7 @@ import "../css/slicktheme.css";
 import { useScript } from "../hooks/useScript";
 import $ from "jquery";
 import Slider from "react-slick";
+import { Link } from "react-router-dom";
 //hooks
 import useFirestore from "../hooks/useFirestore";
 import { projectFirestore } from "../firebase/config";
@@ -119,38 +120,43 @@ function Carousel() {
             {docs &&
               docs.map((doc) => (
                 <div key={doc.id}>
-                  <div
-                    className="col-12 col-md-6 col-lg-4 d-flex"
-                    style={{ width: "18rem" }}
-                  >
-                    <a className="card mb-6 mb-lg-0 shadow-light-lg" href="#!">
-                      <div className="card-zoom">
-                        <img
-                          className="card-img-top"
-                          src={doc.image}
-                          alt="..."
-                          style={{ height: 162 }}
-                        />
-                      </div>
-
-                      <div className="card-body">
-                        <div className="shape shape-bottom-100 shape-fluid-x text-white">
-                          <svg
-                            viewBox="0 0 2880 48"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z"
-                              fill="currentColor"
-                            />
-                          </svg>{" "}
+                  <Link to={`/${doc.id}`}>
+                    <div
+                      className="col-12 col-md-6 col-lg-4 d-flex"
+                      style={{ width: "18rem" }}
+                    >
+                      <a
+                        className="card mb-6 mb-lg-0 shadow-light-lg"
+                        href="#!"
+                      >
+                        <div className="card-zoom">
+                          <img
+                            className="card-img-top"
+                            src={doc.image}
+                            alt="..."
+                            style={{ height: 162 }}
+                          />
                         </div>
 
-                        <h4 className="mb-0">{doc.name}</h4>
-                      </div>
-                    </a>
-                  </div>
+                        <div className="card-body">
+                          <div className="shape shape-bottom-100 shape-fluid-x text-white">
+                            <svg
+                              viewBox="0 0 2880 48"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z"
+                                fill="currentColor"
+                              />
+                            </svg>{" "}
+                          </div>
+
+                          <h4 className="mb-0">{doc.name}</h4>
+                        </div>
+                      </a>
+                    </div>
+                  </Link>
                 </div>
               ))}
             {/* <div>
