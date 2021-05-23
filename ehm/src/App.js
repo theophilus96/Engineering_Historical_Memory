@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./css/theme.css";
 import "./css/libs.css";
+import AOS from "aos";
 //import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React, { useEffect } from "react";
@@ -11,6 +12,10 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 
 function App() {
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
   const [{}, dispatch] = useStateValue();
 
   useEffect(() => {
