@@ -4,6 +4,10 @@ import "../css/slicktheme.css";
 import { useScript } from "../hooks/useScript";
 import $ from "jquery";
 import Slider from "react-slick";
+//hooks
+import useFirestore from "../hooks/useFirestore";
+import { projectFirestore } from "../firebase/config";
+import { useStateValue } from "../state/StateProvider";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -36,6 +40,10 @@ function Carousel() {
   // useScript(
   //   "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick.min.js"
   // );
+
+  const { docs } = useFirestore("category");
+  console.log(docs);
+
   var settings = {
     dots: true,
     infinite: true,
@@ -48,6 +56,32 @@ function Carousel() {
     cssEase: "linear",
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
 
   // $("#carousel").slick({
@@ -82,7 +116,44 @@ function Carousel() {
         <div className="row">
           <h2>Auto Play</h2>
           <Slider {...settings}>
-            <div>
+            {docs &&
+              docs.map((doc) => (
+                <div key={doc.id}>
+                  <div
+                    className="col-12 col-md-6 col-lg-4 d-flex"
+                    style={{ width: "18rem" }}
+                  >
+                    <a className="card mb-6 mb-lg-0 shadow-light-lg" href="#!">
+                      <div className="card-zoom">
+                        <img
+                          className="card-img-top"
+                          src={doc.image}
+                          alt="..."
+                          style={{ height: 162 }}
+                        />
+                      </div>
+
+                      <div className="card-body">
+                        <div className="shape shape-bottom-100 shape-fluid-x text-white">
+                          <svg
+                            viewBox="0 0 2880 48"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z"
+                              fill="currentColor"
+                            />
+                          </svg>{" "}
+                        </div>
+
+                        <h4 className="mb-0">{doc.name}</h4>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            {/* <div>
               <div
                 className="col-12 col-md-6 col-lg-4 d-flex"
                 style={{ width: "18rem" }}
@@ -144,8 +215,6 @@ function Carousel() {
                         />
                       </svg>{" "}
                     </div>
-                    {/* 
-                    <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
 
                     <h4 className="mb-0">Travel Accounts</h4>
                   </div>
@@ -181,8 +250,6 @@ function Carousel() {
                       </svg>{" "}
                     </div>
 
-                    {/* <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
-
                     <h4 className="mb-0">Chronicles</h4>
                   </div>
                 </a>
@@ -216,8 +283,6 @@ function Carousel() {
                         />
                       </svg>{" "}
                     </div>
-                    {/* 
-                    <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
 
                     <h4 className="mb-0">Illuminated Codices</h4>
                   </div>
@@ -253,8 +318,6 @@ function Carousel() {
                       </svg>{" "}
                     </div>
 
-                    {/* <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
-
                     <h4 className="mb-0">Sites</h4>
                   </div>
                 </a>
@@ -289,7 +352,6 @@ function Carousel() {
                       </svg>{" "}
                     </div>
 
-                    {/* <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
 
                     <h4 className="mb-0">Archival Documents</h4>
                   </div>
@@ -325,7 +387,6 @@ function Carousel() {
                       </svg>{" "}
                     </div>
 
-                    {/* <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
 
                     <h4 className="mb-0">Paintings</h4>
                   </div>
@@ -361,13 +422,11 @@ function Carousel() {
                       </svg>{" "}
                     </div>
 
-                    {/* <h6 className="text-uppercase mb-1 text-muted">Branding</h6> */}
-
                     <h4 className="mb-0">History+</h4>
                   </div>
                 </a>
               </div>
-            </div>
+            </div> */}
           </Slider>
         </div>
       </div>
