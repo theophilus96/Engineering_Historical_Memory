@@ -58,16 +58,121 @@ export default function Navbar() {
 
             {/* Navigation */}
             <ul className="navbar-nav ms-auto">
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" id="navbarAccount" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
+                Account
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="navbarAccount">
+                <li className="dropdown-item dropend">
+                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                    Settings
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="./account-general.html">
+                      General
+                    </a>
+                    <a className="dropdown-item" href="./account-security.html">
+                      Security
+                    </a>
+                    <a className="dropdown-item" href="./account-notifications.html">
+                      Notifications
+                    </a>
+                    <a className="dropdown-item" href="./billing-plans-and-payment.html">
+                      Plans & Payment
+                    </a>
+                    <a className="dropdown-item" href="./billing-users.html">
+                      Users
+                    </a>
+                  </div>
+                </li>
+                <li className="dropdown-item dropend">
+                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                    Sign In
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="./signin-cover.html">
+                      Side Cover
+                    </a>
+                    <a className="dropdown-item" href="./signin-illustration.html">
+                      Illustration
+                    </a>
+                    <a className="dropdown-item" href="./signin.html">
+                      Basic
+                    </a>
+                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSigninHorizontal">
+                      Modal Horizontal
+                    </a>
+                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSigninVertical">
+                      Modal Vertical
+                    </a>
+                  </div>
+                </li>
+                <li className="dropdown-item dropend">
+                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                    Sign Up
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="./signup-cover.html">
+                      Side Cover
+                    </a>
+                    <a className="dropdown-item" href="./signup-illustration.html">
+                      Illustration
+                    </a>
+                    <a className="dropdown-item" href="./signup.html">
+                      Basic
+                    </a>
+                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSignupHorizontal">
+                      Modal Horizontal
+                    </a>
+                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSignupVertical">
+                      Modal Vertical
+                    </a>
+                  </div>
+                </li>
+                <li className="dropdown-item dropend">
+                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                    Password Reset
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="./password-reset-cover.html">
+                      Side Cover
+                    </a>
+                    <a className="dropdown-item" href="./password-reset-illustration.html">
+                      Illustration
+                    </a>
+                    <a className="dropdown-item" href="./password-reset.html">
+                      Basic
+                    </a>
+                  </div>
+                </li>
+                <li className="dropdown-item dropend">
+                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
+                    Error
+                  </a>
+                  <div className="dropdown-menu">
+                    <a className="dropdown-item" href="./error-cover.html">
+                      Side Cover
+                    </a>
+                    <a className="dropdown-item" href="./error-illustration.html">
+                      Illustration
+                    </a>
+                    <a className="dropdown-item" href="./error.html">
+                      Basic
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </li>
               <li className="nav-item dropdown">
                 <Link
-                  to="/company"
+                  to="#"
                   className="nav-link dropdown-toggle"
                   id="navbarLandings"
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Companies
+                  Applications
                 </Link>
 
                 <div
@@ -75,27 +180,6 @@ export default function Navbar() {
                   aria-labelledby="navbarLandings"
                 >
                   <div className="row gx-0">
-                    {/* <div className="col-12 col-lg-6">
-                      <div
-                        className="dropdown-img-start"
-                        style={{
-                          backgroundImage: `url(require("./assets/img/photos/photo-3.jpg"))`,
-                        }}
-                      >
-                        <h4 className="fw-bold text-white mb-0">Overview</h4>
-
-                        <p className="fs-sm text-white">
-                          See all the pages at once.
-                        </p>
-
-                        <a
-                          href="./overview.html"
-                          className="btn btn-sm btn-white shadow-dark fonFt-size-sm"
-                        >
-                          View all pages
-                        </a>
-                      </div>
-                    </div> */}
                     <div className="col-6 col-lg-6">
                       <div className="dropdown-body">
                         <div className="row gx-0">

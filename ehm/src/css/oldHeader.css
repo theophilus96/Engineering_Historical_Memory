@@ -1,0 +1,261 @@
+:root {
+  --hover-color: #555;
+  --active-color: #7d7d7d;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, serif;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  z-index: 2000;
+  background: white;
+}
+
+.header-right {
+  float: right;
+}
+
+.header-left {
+  float: left;
+}
+
+#pageTitle {
+  max-height: 16px;
+  max-width: calc(100% - 400px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expand-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 16px;
+  cursor: pointer;
+}
+
+.topnav {
+  overflow: hidden;
+  /*background-color: #333;*/
+  border-bottom: 1px solid #eaeaea;
+  font-family: DMSans, Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.topnav a {
+  display: block;
+  /*color: var(--active-color);*/
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.active {
+  background-color: var(--active-color);
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+.app-thumb {
+  height: 20px;
+  width: 30px;
+  margin-right: 5px;
+  vertical-align: sub;
+}
+
+.user-thumb {
+  font-size: 22px !important;
+  margin-right: 5px;
+  width: 25px;
+}
+
+.dropdown {
+  overflow: hidden;
+}
+
+.dropdown1,
+.dropdown2 {
+  position: relative;
+}
+
+.dropbtn,
+.dropbtn1,
+.dropbtn2 {
+  font-size: 14px;
+  padding: 14px 16px;
+  border: none;
+  outline: none;
+  /*color: var(--active-color);*/
+  color: black;
+
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  cursor: pointer;
+}
+
+.dropdown-content,
+.dropdown-content1,
+.dropdown-content2 {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 2000;
+}
+
+.dropdown-content1,
+.dropdown-content2 {
+  min-width: 250px;
+  position: absolute;
+  top: 0;
+}
+
+.dropdown-content1 {
+  right: 150px;
+}
+
+.dropdown-content2 {
+  right: 250px;
+}
+
+.dropdown-content a,
+.dropdown-content1 a,
+.dropdown-content2 a {
+  float: none;
+  color: black;
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+  font-weight: normal;
+  text-transform: none;
+}
+
+.topnav a:hover,
+.dropdown:hover .dropbtn,
+.dropdown1:hover .dropbtn1,
+.dropdown1:hover .expand-btn,
+.dropdown2:hover .dropbtn2 {
+  background-color: var(--hover-color) !important;
+  color: white !important;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown1:hover .dropdown-content1,
+.expand-btn:hover .dropdown-content1,
+.dropdown2:hover .dropdown-content2 {
+  display: block;
+}
+
+/*.expand-btn:hover .topnav, .dropdown1:hover .topnav{*/
+/*    overflow: visible;*/
+/*}*/
+
+#user_profile {
+  float: right;
+}
+
+.page_container {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.wrapper {
+  /*padding-bottom: 10px;*/
+  height: auto;
+  overflow: auto;
+  min-height: calc(100vh - 45px);
+  margin-top: 45px;
+  /*background: white;*/
+  position: relative;
+}
+
+.header-icon {
+  width: 20px;
+}
+
+.social-login a {
+  margin: 10px;
+}
+
+.social-login i {
+  border-radius: 5px;
+  font-size: 30px;
+  padding: 5px;
+  color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .topnav a:nth-child(n + 2),
+  .dropdown .dropbtn {
+    display: none;
+  }
+
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .topnav.responsive {
+    position: relative;
+    overflow: visible;
+  }
+
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+
+  .topnav.responsive .dropdown,
+  #user_profile {
+    float: none;
+  }
+
+  .topnav.responsive .dropdown-content {
+    position: relative;
+  }
+
+  .topnav.responsive .dropdown .dropbtn {
+    display: block;
+    width: calc(100% - 32px);
+    text-align: right;
+  }
+
+  #pageTitle {
+    max-width: unset;
+  }
+
+  .dropdown-content1 {
+    top: unset;
+    left: unset;
+    width: 90%;
+    z-index: 2000;
+  }
+
+  .dropdown {
+    overflow: visible;
+  }
+}
