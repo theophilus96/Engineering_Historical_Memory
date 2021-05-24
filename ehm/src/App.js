@@ -9,6 +9,7 @@ import { useStateValue } from "./state/StateProvider";
 import { auth } from "./firebase/config";
 import Navbar from "./components/Navbar";
 // import OldNavBar from "./components/OldNavBar";
+import NavBar1 from "./components/NavBar1";
 //pages
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
@@ -42,7 +43,7 @@ function App() {
     <div className="App">
       <Router>
         {/* <OldNavBar/> */}
-        <Navbar />
+        <NavBar1 />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:id" component={ArticlesList} />
