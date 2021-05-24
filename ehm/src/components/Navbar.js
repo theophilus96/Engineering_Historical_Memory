@@ -14,6 +14,11 @@ export default function Navbar() {
     }
   };
 
+  function onMouseEnter(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
   return (
     <div>
       {/* NAVBAR */}
@@ -58,111 +63,186 @@ export default function Navbar() {
 
             {/* Navigation */}
             <ul className="navbar-nav ms-auto">
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" id="navbarAccount" data-bs-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">
-                Account
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarAccount">
-                <li className="dropdown-item dropend">
-                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                    Settings
-                  </a>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="./account-general.html">
-                      General
+              <li className="nav-item dropdown">
+                <a
+                  className="nav-link dropdown-toggle"
+                  id="navbarAccount"
+                  data-bs-toggle="dropdown"
+                  href="#"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Account
+                </a>
+                <ul className="dropdown-menu" aria-labelledby="navbarAccount">
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Settings
                     </a>
-                    <a className="dropdown-item" href="./account-security.html">
-                      Security
+                    <div className="dropdown-menu">
+                      <a
+                        className="dropdown-item"
+                        href="./account-general.html"
+                      >
+                        General
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./account-security.html"
+                      >
+                        Security
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./account-notifications.html"
+                      >
+                        Notifications
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./billing-plans-and-payment.html"
+                      >
+                        Plans & Payment
+                      </a>
+                      <a className="dropdown-item" href="./billing-users.html">
+                        Users
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Sign In
                     </a>
-                    <a className="dropdown-item" href="./account-notifications.html">
-                      Notifications
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./signin-cover.html">
+                        Side Cover
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./signin-illustration.html"
+                      >
+                        Illustration
+                      </a>
+                      <a className="dropdown-item" href="./signin.html">
+                        Basic
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        href="#modalSigninHorizontal"
+                      >
+                        Modal Horizontal
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        href="#modalSigninVertical"
+                      >
+                        Modal Vertical
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Sign Up
                     </a>
-                    <a className="dropdown-item" href="./billing-plans-and-payment.html">
-                      Plans & Payment
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./signup-cover.html">
+                        Side Cover
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./signup-illustration.html"
+                      >
+                        Illustration
+                      </a>
+                      <a className="dropdown-item" href="./signup.html">
+                        Basic
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        href="#modalSignupHorizontal"
+                      >
+                        Modal Horizontal
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        data-bs-toggle="modal"
+                        href="#modalSignupVertical"
+                      >
+                        Modal Vertical
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Password Reset
                     </a>
-                    <a className="dropdown-item" href="./billing-users.html">
-                      Users
+                    <div className="dropdown-menu">
+                      <a
+                        className="dropdown-item"
+                        href="./password-reset-cover.html"
+                      >
+                        Side Cover
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./password-reset-illustration.html"
+                      >
+                        Illustration
+                      </a>
+                      <a className="dropdown-item" href="./password-reset.html">
+                        Basic
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Error
                     </a>
-                  </div>
-                </li>
-                <li className="dropdown-item dropend">
-                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                    Sign In
-                  </a>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="./signin-cover.html">
-                      Side Cover
-                    </a>
-                    <a className="dropdown-item" href="./signin-illustration.html">
-                      Illustration
-                    </a>
-                    <a className="dropdown-item" href="./signin.html">
-                      Basic
-                    </a>
-                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSigninHorizontal">
-                      Modal Horizontal
-                    </a>
-                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSigninVertical">
-                      Modal Vertical
-                    </a>
-                  </div>
-                </li>
-                <li className="dropdown-item dropend">
-                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                    Sign Up
-                  </a>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="./signup-cover.html">
-                      Side Cover
-                    </a>
-                    <a className="dropdown-item" href="./signup-illustration.html">
-                      Illustration
-                    </a>
-                    <a className="dropdown-item" href="./signup.html">
-                      Basic
-                    </a>
-                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSignupHorizontal">
-                      Modal Horizontal
-                    </a>
-                    <a className="dropdown-item" data-bs-toggle="modal" href="#modalSignupVertical">
-                      Modal Vertical
-                    </a>
-                  </div>
-                </li>
-                <li className="dropdown-item dropend">
-                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                    Password Reset
-                  </a>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="./password-reset-cover.html">
-                      Side Cover
-                    </a>
-                    <a className="dropdown-item" href="./password-reset-illustration.html">
-                      Illustration
-                    </a>
-                    <a className="dropdown-item" href="./password-reset.html">
-                      Basic
-                    </a>
-                  </div>
-                </li>
-                <li className="dropdown-item dropend">
-                  <a className="dropdown-link dropdown-toggle" data-bs-toggle="dropdown" href="#">
-                    Error
-                  </a>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="./error-cover.html">
-                      Side Cover
-                    </a>
-                    <a className="dropdown-item" href="./error-illustration.html">
-                      Illustration
-                    </a>
-                    <a className="dropdown-item" href="./error.html">
-                      Basic
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </li>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./error-cover.html">
+                        Side Cover
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./error-illustration.html"
+                      >
+                        Illustration
+                      </a>
+                      <a className="dropdown-item" href="./error.html">
+                        Basic
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
               <li className="nav-item dropdown">
                 <Link
                   to="#"

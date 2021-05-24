@@ -112,7 +112,7 @@ function Carousel() {
   // });
 
   return (
-    <section className="pt-7 pt-md-10 bg-light">
+    <section className="pt-7 pt-md-10">
       <div className="container">
         <div className="row">
           <h2>Auto Play</h2>

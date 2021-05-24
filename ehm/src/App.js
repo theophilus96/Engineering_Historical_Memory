@@ -8,8 +8,8 @@ import React, { useEffect } from "react";
 import { useStateValue } from "./state/StateProvider";
 import { auth } from "./firebase/config";
 import Navbar from "./components/Navbar";
+import BottomList from "./components/BottomList";
 // import OldNavBar from "./components/OldNavBar";
-import NavBar1 from "./components/NavBar1";
 //pages
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
@@ -43,11 +43,12 @@ function App() {
     <div className="App">
       <Router>
         {/* <OldNavBar/> */}
-        <NavBar1 />
+        <Navbar />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/:id" component={ArticlesList} />
         </Switch>
+        
       </Router>
     </div>
   );
