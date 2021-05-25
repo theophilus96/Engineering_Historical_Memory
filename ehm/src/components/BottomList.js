@@ -15,11 +15,25 @@ export default function BottomList() {
     //querySnapshot is "iteratable" itself
     querySnapshot.forEach((CatDoc) => {
       //userDoc contains all metadata of Firestore object, such as reference and id
-      console.log(CatDoc.id);
+      console.log("category ID",CatDoc.id);
 
+      Catdocument.doc(CatDoc.id)
+        .collection("Article")
+        .get()
+        .then((querySnapshot) => {
+          //querySnapshot is "iteratable" itself
+          querySnapshot.forEach((ArtDoc) => {
+            //userDoc contains all metadata of Firestore object, such as reference and id
+            console.log("Article ID",ArtDoc.id);
+
+            //If you want to get doc data
+              var userDocData = ArtDoc.data();
+              console.dir(userDocData);
+          });
+        });
       //If you want to get doc data
-      var userDocData = CatDoc.data();
-      console.dir(userDocData);
+      //   var userDocData = CatDoc.data();
+      //   console.dir(userDocData);
     });
   });
 
