@@ -149,3 +149,13 @@
   opacity: 0.75;
   color: #000;
 } /*# sourceMappingURL=slick-theme.min.css.map */
+
+.slick-slide {
+  background-color: #f9fbfd;
+
+  /* --bs-light: #f9fbfd;
+  --bs-dark: #1b2a4e;
+  --bs-primary-desat: #6c8aec;
+  --bs-black: #161c2d;
+  --bs-white: #fff; */
+}

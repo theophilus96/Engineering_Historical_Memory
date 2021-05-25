@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <div>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg navbar-dark navbar-togglable fixed-top border-bottom-dark">
+      <nav className="navbar navbar-expand-lg navbar-light bg-white navbar-togglable fixed-top">
         <div className="container">
           {/* Brand */}
           <Link to="/" className="navbar-brand">
@@ -72,7 +72,7 @@ export default function Navbar() {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Account
+                  Applications
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarAccount">
                   <li className="dropdown-item dropend">
@@ -82,35 +82,20 @@ export default function Navbar() {
                       href="#"
                       onClick={onMouseEnter}
                     >
-                      Settings
+                      Maps of Afro-Eurasia
                     </a>
                     <div className="dropdown-menu">
                       <a
                         className="dropdown-item"
                         href="./account-general.html"
                       >
-                        General
+                        Fra Mauro’s Map of the World (dated 26 August 1460)
                       </a>
                       <a
                         className="dropdown-item"
                         href="./account-security.html"
                       >
-                        Security
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./account-notifications.html"
-                      >
-                        Notifications
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./billing-plans-and-payment.html"
-                      >
-                        Plans & Payment
-                      </a>
-                      <a className="dropdown-item" href="./billing-users.html">
-                        Users
+                        Genoese Map of the World 1457 CE
                       </a>
                     </div>
                   </li>
@@ -121,34 +106,17 @@ export default function Navbar() {
                       href="#"
                       onClick={onMouseEnter}
                     >
-                      Sign In
+                      Travel Accounts
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="./signin-cover.html">
-                        Side Cover
+                        Marco Polo. Le Devisement dou monde
                       </a>
                       <a
                         className="dropdown-item"
                         href="./signin-illustration.html"
                       >
-                        Illustration
-                      </a>
-                      <a className="dropdown-item" href="./signin.html">
-                        Basic
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        href="#modalSigninHorizontal"
-                      >
-                        Modal Horizontal
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        href="#modalSigninVertical"
-                      >
-                        Modal Vertical
+                        Ibn Battuta. Riḥla / The Journey (1325 - 1354 CE)
                       </a>
                     </div>
                   </li>
@@ -159,34 +127,28 @@ export default function Navbar() {
                       href="#"
                       onClick={onMouseEnter}
                     >
-                      Sign Up
+                      Chronicles
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="./signup-cover.html">
-                        Side Cover
+                        The Morosini Codex (1095-1433)
                       </a>
                       <a
                         className="dropdown-item"
                         href="./signup-illustration.html"
                       >
-                        Illustration
+                        Southeast Asia in the Ming Shilu (明實錄, 1368-1644)
                       </a>
                       <a className="dropdown-item" href="./signup.html">
-                        Basic
+                        The Royal Chronicles of Ayutthaya (Book One, 1169-1548)
                       </a>
                       <a
                         className="dropdown-item"
                         data-bs-toggle="modal"
                         href="#modalSignupHorizontal"
                       >
-                        Modal Horizontal
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        href="#modalSignupVertical"
-                      >
-                        Modal Vertical
+                        The List of Old-Russian Towns (last quarter of the 14th
+                        - early 15th c.)
                       </a>
                     </div>
                   </li>
@@ -197,25 +159,9 @@ export default function Navbar() {
                       href="#"
                       onClick={onMouseEnter}
                     >
-                      Password Reset
+                      Illuminated Codices
                     </a>
-                    <div className="dropdown-menu">
-                      <a
-                        className="dropdown-item"
-                        href="./password-reset-cover.html"
-                      >
-                        Side Cover
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./password-reset-illustration.html"
-                      >
-                        Illustration
-                      </a>
-                      <a className="dropdown-item" href="./password-reset.html">
-                        Basic
-                      </a>
-                    </div>
+                    <div className="dropdown-menu"></div>
                   </li>
                   <li className="dropdown-item dropend">
                     <a
@@ -224,24 +170,83 @@ export default function Navbar() {
                       href="#"
                       onClick={onMouseEnter}
                     >
-                      Error
+                      Sites
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="./error-cover.html">
-                        Side Cover
+                        The Methoni Castle (1207-1500 & 1685-1715)
                       </a>
                       <a
                         className="dropdown-item"
                         href="./error-illustration.html"
                       >
-                        Illustration
+                        Hill Forts of Rajasthan (ca 8th-16th cent. CE)
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Archival Documents
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./error-cover.html">
+                        Pope Gregory X’s Privilege for the Holy Monastery of St
+                        Catherine of Sinai (24 September 1274)
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      Paintings
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./error-cover.html">
+                        The “Wayfarer Triptych” by Jheronimus Bosch (ca
+                        1485-1500)
+                      </a>
+                    </div>
+                  </li>
+                  <li className="dropdown-item dropend">
+                    <a
+                      className="dropdown-link dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      href="#"
+                      onClick={onMouseEnter}
+                    >
+                      History+
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="./error-cover.html">
+                        Maps of Afro-Eurasia (1100-1460 CE)
+                      </a>
+                      <a
+                        className="dropdown-item"
+                        href="./error-illustration.html"
+                      >
+                        Information Visualisation for Digital History
                       </a>
                       <a className="dropdown-item" href="./error.html">
-                        Basic
+                        Chronicles and Travel Accounts of Afro-Eurasia
+                        (1205-1533 CE)
                       </a>
                     </div>
                   </li>
                 </ul>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" id="navbarAccount" to="/blog">
+                  Research Team
+                </Link>
               </li>
               <li className="nav-item dropdown">
                 <Link
@@ -252,7 +257,7 @@ export default function Navbar() {
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  Applications
+                  Info
                 </Link>
 
                 <div
@@ -269,8 +274,14 @@ export default function Navbar() {
 
                             {/* List */}
                             <Link className="dropdown-item" to="/company">
-                              all
+                              About
                             </Link>
+                            <a className="dropdown-item" href="./rental.html">
+                              Terms of Use
+                            </a>
+                            <a className="dropdown-item mb-5" href="./job.html">
+                              Credits
+                            </a>
                           </div>
                         </div>{" "}
                         {/* / .row */}
@@ -279,21 +290,6 @@ export default function Navbar() {
                   </div>{" "}
                   {/* / .row */}
                 </div>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link"
-                  id="navbarPages"
-                  href="https://sandbox-social.web.app/"
-                >
-                  Social
-                </a>
-                {/* / .row */}
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" id="navbarAccount" to="/blog">
-                  Blog
-                </Link>
               </li>
               <li className="nav-item dropdown">
                 <a
@@ -346,7 +342,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to={user ? "/profile" : "/login"}>
-                  Hello {!user ? "Guest" : userName}
+                  {!user ? "Guest" : userName}
                 </Link>
               </li>
             </ul>
@@ -354,7 +350,7 @@ export default function Navbar() {
             {/* Button */}
 
             <a
-              className="navbar-btn btn btn-sm btn-primary lift ms-auto"
+              className="navbar-btn btn btn-sm btn-primary-desat lift ms-auto"
               href={!user ? "/login" : "#!"}
               onClick={handleAuthentication}
             >

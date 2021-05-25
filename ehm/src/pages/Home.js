@@ -13,7 +13,7 @@ export default function Home() {
       <Welcome />
       <Carousel />
       {/* <Category /> */}
-      {/* <VideoModal /> */}
+      <VideoModal />
       <BottomList />
     </div>
   );

@@ -7,6 +7,15 @@ export default function BottomList() {
   const { docs } = useFirestore("category");
   console.log(docs);
 
+  const MapsofAfroEurasia = useFirestore(
+    "category/qujoO8JON704I5cm5WYn/Article"
+  ).docs;
+  const Paint = useFirestore("category/smgggzT906j7oJaPGjTP/Article").docs;
+
+  console.log(MapsofAfroEurasia);
+  console.log(Paint);
+
+  const documentID = [];
   //Also a good practice to separate reference instance
   var Catdocument = projectFirestore.collection("category");
 
@@ -15,7 +24,7 @@ export default function BottomList() {
     //querySnapshot is "iteratable" itself
     querySnapshot.forEach((CatDoc) => {
       //userDoc contains all metadata of Firestore object, such as reference and id
-      console.log("category ID",CatDoc.id);
+      //   console.log("category ID", CatDoc.id);
 
       Catdocument.doc(CatDoc.id)
         .collection("Article")
@@ -24,11 +33,17 @@ export default function BottomList() {
           //querySnapshot is "iteratable" itself
           querySnapshot.forEach((ArtDoc) => {
             //userDoc contains all metadata of Firestore object, such as reference and id
-            console.log("Article ID",ArtDoc.id);
-
+            // console.log("Article ID", ArtDoc.id);
+            var userDocData = {};
             //If you want to get doc data
-              var userDocData = ArtDoc.data();
-              console.dir(userDocData);
+            userDocData = ArtDoc.data();
+            // console.dir(userDocData);
+            documentID[documentID.length] = userDocData;
+            // documentID.push({
+            //   id: ArtDoc.id,
+            //   name: ArtDoc.name,
+            //   image: ArtDoc.image,
+            // });
           });
         });
       //If you want to get doc data
@@ -37,14 +52,37 @@ export default function BottomList() {
     });
   });
 
-  for (const x in docs) {
-    const y = projectFirestore
-      .collection("category")
-      .doc(x.id)
-      .collection("Article")
-      .get();
-    console.log("y", y);
+  //   for (const x in docs) {
+  //     const y = projectFirestore
+  //       .collection("category")
+  //       .doc(x.id)
+  //       .collection("Article")
+  //       .get();
+  //     console.log("y", y);
+  //   }
+
+  console.log("type", typeof documentID);
+  //   for (const x in documentID) {
+  //     console.log("x", x);
+  //   }
+
+  documentID.forEach(myFunction);
+
+  function myFunction(value, index, array) {
+    console.log(value);
+    console.log(index);
+    console.log(array);
   }
+  console.log("document ID ARRAY", documentID);
+
+  documentID.map(function (element, index, array) {
+    console.log("element", element);
+    console.log(index);
+    console.log(array);
+    return element;
+  });
+
+  documentID.map((doc) => console.log("doc data in documentID", doc.data()));
 
   //   const [articleData, setarticleData] = useState("");
 
@@ -71,11 +109,11 @@ export default function BottomList() {
 
   useEffect(() => {
     async function getMarkers() {
-      const documents = [];
-      docs.forEach((doc) => {
-        documents[doc.id] = doc.data();
-      });
-      console.log("documents", documents);
+      //   const documents = [];
+      //   docs.forEach((doc) => {
+      //     documents[doc.id] = doc.data();
+      //   });
+      //   console.log("documents", documents);
       //   const markers = [];
       //   await projectFirestore
       //     .collection("category")
@@ -86,7 +124,6 @@ export default function BottomList() {
       //       });
       //     });
       //   console.log("markers", markers);
-
       //   for (const x in markers) {
       //     const y = projectFirestore
       //       .collection("category")
@@ -95,8 +132,7 @@ export default function BottomList() {
       //       .get();
       //     console.log("y", y);
       //   }
-
-      return documents;
+      //   return documents;
     }
     // Get reference to all of the documents
   }, []);
@@ -132,8 +168,8 @@ export default function BottomList() {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {docs &&
-              docs.map((doc) => (
+            {MapsofAfroEurasia &&
+              MapsofAfroEurasia.map((doc) => (
                 <div
                   className="card card-row shadow-light-lg mb-6 lift lift-lg"
                   key={doc.id}
