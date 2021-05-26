@@ -4,13 +4,14 @@ import { projectFirestore } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 
 export default function ListArticles(doc) {
-  const { docs } = useFirestore("category/qujoO8JON704I5cm5WYn/Article");
+  // console.log("doc for list articles", doc);
+  const { id } = useParams();
+  console.log("id = ", id);
+  console.log("doc = ", doc);
+  const { docs } = useFirestore("category/" + id + "/Article");
   console.log(docs);
 
   // const [articleList, setarticleList] = useState("");
-  // const { id } = useParams();
-  // console.log("id = ", id);
-  // console.log("doc = ", doc);
 
   // var docRef = projectFirestore.collection("category").doc(id);
 

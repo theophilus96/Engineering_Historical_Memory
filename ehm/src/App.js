@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import BottomList from "./components/BottomList";
 // import OldNavBar from "./components/OldNavBar";
 import NavBar1 from "./components/NavBar1";
+import Login from "./components/Login";
 //pages
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
@@ -48,7 +49,8 @@ function App() {
         {/* <NavBar1 /> */}
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/:id" component={ArticlesList} />
+          <Route exact path="/category/:id" component={ArticlesList} />
+          <Route exact path="/login" component={Login} />
         </Switch>
       </Router>
     </div>

@@ -120,7 +120,7 @@ function Carousel() {
             {docs &&
               docs.map((doc) => (
                 <div key={doc.id}>
-                  <Link to={`/${doc.id}`}>
+                  <Link to={`/category/${doc.id}`}>
                     <div
                       className="col-12 col-md-6 col-lg-4 d-flex"
                       style={{ width: "18rem" }}
