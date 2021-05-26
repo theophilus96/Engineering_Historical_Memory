@@ -126,7 +126,7 @@ function Carousel() {
                       style={{ width: "18rem" }}
                     >
                       <a
-                        className="card mb-6 mb-lg-0 shadow-light-lg"
+                        className="card mb-6 mb-lg-0 shadow-light-sm"
                         href="#!"
                       >
                         <div className="card-zoom">

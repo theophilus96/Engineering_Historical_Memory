@@ -7,7 +7,10 @@ export default function VideoModal() {
 
   const myRef = React.useRef(null);
 
-  useEffect(() => setOpen(true), []);
+  useEffect(() => {
+    setOpen(true);
+    setTimeout(() => setOpen(false), 7000);
+  }, []);
 
   return (
     <>
@@ -23,17 +26,26 @@ export default function VideoModal() {
         container={myRef.current}
         styles={{
           modal: {
-            maxWidth: "unset",
+            // maxWidth: "unset",
+            maxWidth: "1024px",
+            // background: "black",
+            width: "100%",
           },
           overlay: {
             background: "rgba(0, 0, 0, 0.5)",
           },
           closeButton: {
-            background: "black",
+            background: "gray",
           },
         }}
       >
-        <ReactPlayer url="https://vimeo.com/291715535" playing muted />
+        <ReactPlayer
+          url="https://engineeringhistoricalmemory.com/Images/EHMLogo.mp4"
+          playing
+          muted
+          width="100%"
+          height="100%"
+        />
       </Modal>
     </>
   );

@@ -159,3 +159,17 @@
   --bs-black: #161c2d;
   --bs-white: #fff; */
 }
+
+.slick-slide {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.slick-active {
+  opacity: 1 !important;
+  transition: opacity 1s ease-in;
+}
+
+.slick-cloned {
+  opacity: 1;
+}
