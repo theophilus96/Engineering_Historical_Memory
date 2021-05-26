@@ -25,7 +25,7 @@ export default function Login() {
             <h1 className="mb-0 fw-bold text-center">Sign in</h1>
 
             <p className="mb-6 text-center text-muted">
-              Simplify your workflow in minutes.
+              {/* Simplify your workflow in minutes. */}
             </p>
 
             <form className="mb-6">
@@ -38,6 +38,8 @@ export default function Login() {
                   className="form-control"
                   id="email"
                   placeholder="name@address.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -50,6 +52,8 @@ export default function Login() {
                   className="form-control"
                   id="password"
                   placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
@@ -59,7 +63,7 @@ export default function Login() {
             </form>
 
             <p className="mb-0 fs-sm text-center text-muted">
-              Don't have an account yet <a href="signup.html">Sign up</a>.
+              Don't have an account yet <a href="/signup">Sign up</a>.
             </p>
           </div>
         </div>

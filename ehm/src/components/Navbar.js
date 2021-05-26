@@ -8,6 +8,26 @@ export default function Navbar() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
 
+  useEffect(() => {
+    if (user) {
+      projectFirestore
+        .collection("users")
+        .doc(user.uid)
+        .onSnapshot(
+          {
+            // Listen for document metadata changes
+            includeMetadataChanges: true,
+          },
+          (doc) =>
+            console.log(
+              "user documents",
+              doc.data().name,
+              setUserName(doc.data().name)
+            )
+        );
+    }
+  }, [user]);
+
   const handleAuthentication = () => {
     if (user) {
       auth.signOut();
