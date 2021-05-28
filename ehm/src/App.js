@@ -16,6 +16,8 @@ import SignUp from "./components/SignUp";
 //pages
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
+//articles
+import Framauro from "./articles/Framauro";
 
 function App() {
   useEffect(() => {
@@ -53,6 +55,7 @@ function App() {
           <Route exact path="/category/:id" component={ArticlesList} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/article/framauro" component={Framauro} />
         </Switch>
       </Router>
     </div>
