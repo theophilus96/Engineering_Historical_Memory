@@ -45,7 +45,43 @@ export default function Framauro(doc) {
 
   console.log("articleData = ", articleData);
   console.log("articleData = ", articleData.link);
+  //  <div id="background"></div>
+  //       <div class="page_container">
+  //         <div class="wrapper">
+  //           <div style="position: relative">
+  //             <div
+  //               id="hist_map_container"
+  //               style="height: calc(100vh - 45px)"
+  //             ></div>
+  //           </div>
+  //           <div id="multiSpectralCont">
+  //             <div id="multiSpectral"></div>
+  //           </div>
+  //           <div id="videoCont"></div>
 
+  //           <div id="shipDraggable" class="draggable"></div>
+  //           <div id="infographDraggable"></div>
+  //           <div id="ehmSearchDraggable"></div>
+  //           <div id="introDraggable"></div>
+  //         </div>
+  //       </div>
+  //    <div
+  //         dangerouslySetInnerHTML={{
+  //           __html: `<iframe src='https://engineeringhistoricalmemory.com/FraMauro.php' />`,
+  //         }}
+  //       />
+  //       <iframe
+  //         src="https://engineeringhistoricalmemory.com/FraMauro.php"
+  //         sandbox=""
+  //         title="Fra mauro"
+  //       />
+  //       <iframe
+  //         src={src}
+  //         width={width}
+  //         height={height}
+  //         title="Fra mauro"
+  //       ></iframe>
+  //       <h1>I frame Demo</h1>
 
   const demos = {
     soundcloud:
@@ -57,8 +93,7 @@ export default function Framauro(doc) {
     framauro:
       '<iframe src="https://engineeringhistoricalmemory.com/FraMauro1.php" title="FraMauro1" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>',
 
-    article:
-      `<iframe src=${articleData.link} title="FraMauro1" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>`,
+    article: `<iframe src=${articleData.link} title="FraMauro1" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>`,
   };
 
   function Iframe(props) {
@@ -69,47 +104,5 @@ export default function Framauro(doc) {
     );
   }
 
-  return (
-    <div>
-      {/* <div id="background"></div>
-      <div class="page_container">
-        <div class="wrapper">
-          <div style="position: relative">
-            <div
-              id="hist_map_container"
-              style="height: calc(100vh - 45px)"
-            ></div>
-          </div>
-          <div id="multiSpectralCont">
-            <div id="multiSpectral"></div>
-          </div>
-          <div id="videoCont"></div>
-
-
-          <div id="shipDraggable" class="draggable"></div>
-          <div id="infographDraggable"></div>
-          <div id="ehmSearchDraggable"></div>
-          <div id="introDraggable"></div>
-        </div>
-      </div> */}
-      {/* <div
-        dangerouslySetInnerHTML={{
-          __html: `<iframe src='https://engineeringhistoricalmemory.com/FraMauro.php' />`,
-        }}
-      />
-      <iframe
-        src="https://engineeringhistoricalmemory.com/FraMauro.php"
-        sandbox=""
-        title="Fra mauro"
-      />
-      <iframe
-        src={src}
-        width={width}
-        height={height}
-        title="Fra mauro"
-      ></iframe>
-      <h1>I frame Demo</h1> */}
-      <Iframe iframe={demos["article"]} allow="autoplay" />,
-    </div>
-  );
+  return <Iframe iframe={demos["article"]} allow="autoplay" />;
 }
