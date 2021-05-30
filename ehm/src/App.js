@@ -52,10 +52,11 @@ function App() {
         {/* <NavBar1 /> */}
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/category/:id" component={ArticlesList} />
+          <Route exact path="/category/:CatId" component={ArticlesList} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/article/framauro" component={Framauro} />
+          <Route exact path="/category/:CatId/article/:id" component={Framauro} />
         </Switch>
       </Router>
     </div>

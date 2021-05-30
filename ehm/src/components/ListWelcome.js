@@ -4,11 +4,11 @@ import { projectFirestore } from "../firebase/config";
 
 export default function ListWelcome(doc) {
   const [categoryData, setacategoryData] = useState("");
-  const { id } = useParams();
-  console.log("id = ", id);
+  const { CatId } = useParams();
+  console.log("id = ", CatId);
   console.log("doc = ", doc);
 
-  var docRef = projectFirestore.collection("category").doc(id);
+  var docRef = projectFirestore.collection("category").doc(CatId);
 
   useEffect(() => {
     docRef

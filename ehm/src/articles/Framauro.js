@@ -1,14 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useScript } from "../hooks/useScript";
+import { useParams } from "react-router-dom";
+import useFirestore from "../hooks/useFirestore";
+import { projectFirestore } from "../firebase/config";
 // import "../JSapplication/echarts";
 // import "../JSapplication/FraMauroMap1";
 
-export default function Framauro() {
+export default function Framauro(doc) {
   //   useScript("../JSapplication/echarts");
   //   useScript("../JSapplication/FraMauroMap1");
-  const src = "https://engineeringhistoricalmemory.com/FraMauro.php";
-  const width = "100%";
-  const height = "100%";
+  // const src = "https://engineeringhistoricalmemory.com/FraMauro.php";
+  // const width = "100%";
+  // const height = "100%";
+
+  const [articleData, setarticleData] = useState("");
+  const { CatId, id } = useParams();
+  console.log("id = ", id);
+  console.log("CatID = ", CatId);
+
+  console.log("doc = ", doc);
+
+  var docRef = projectFirestore
+    .collection("category")
+    .doc(CatId)
+    .collection("Article")
+    .doc(id);
+
+  useEffect(() => {
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          setarticleData(doc.data());
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, []);
+
+  console.log("articleData = ", articleData);
+  console.log("articleData = ", articleData.link);
+
 
   const demos = {
     soundcloud:
@@ -18,7 +55,10 @@ export default function Framauro() {
       '<iframe src="https://codesandbox.io/embed/q7jmjyplvq?fontsize=14" title="Plotly All Graph Types" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>',
 
     framauro:
-      '<iframe src="https://engineeringhistoricalmemory.com/FraMauro1.php" title="Plotly All Graph Types" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>',
+      '<iframe src="https://engineeringhistoricalmemory.com/FraMauro1.php" title="FraMauro1" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>',
+
+    article:
+      `<iframe src=${articleData.link} title="FraMauro1" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:calc(100vh);;  margin-top:40px; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>`,
   };
 
   function Iframe(props) {
@@ -69,7 +109,7 @@ export default function Framauro() {
         title="Fra mauro"
       ></iframe>
       <h1>I frame Demo</h1> */}
-      <Iframe iframe={demos["framauro"]} allow="autoplay" />,
+      <Iframe iframe={demos["article"]} allow="autoplay" />,
     </div>
   );
 }
