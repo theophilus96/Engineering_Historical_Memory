@@ -264,7 +264,7 @@ export default function Navbar() {
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" id="navbarAccount" to="/blog">
+                <Link className="nav-link" id="navbarAccount" to="/researchteam">
                   Research Team
                 </Link>
               </li>

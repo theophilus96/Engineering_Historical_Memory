@@ -16,8 +16,11 @@ import SignUp from "./components/SignUp";
 //pages
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
+import AboutPage from "./pages/AboutPage";
 //articles
 import Framauro from "./articles/Framauro";
+//research Team
+import researchTeam from "./researchTeam/researchTeam";
 
 function App() {
   useEffect(() => {
@@ -57,6 +60,9 @@ function App() {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/article/framauro" component={Framauro} />
           <Route exact path="/category/:CatId/article/:id" component={Framauro} />
+          <Route exact path="/researchteam" component={researchTeam} />
+          <Route exact path="/about" component={AboutPage} />
+
         </Switch>
       </Router>
     </div>

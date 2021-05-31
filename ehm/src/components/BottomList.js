@@ -2,182 +2,98 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { projectFirestore } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
+import useSubcollect from "../hooks/useSubcollect";
 
 export default function BottomList() {
-
   const [items, setItems] = useState([]);
-  const [itemName, setItemName] = useState("");
 
-  const { docs } = useFirestore("category");
-  console.log(docs);
+  // const { docs } = useFirestore("category");
+  const { docs } = useSubcollect("category");
+
+  console.log("use sub collect ", docs);
 
   const MapsofAfroEurasia = useFirestore(
     "category/qujoO8JON704I5cm5WYn/Article"
   ).docs;
   const Paint = useFirestore("category/smgggzT906j7oJaPGjTP/Article").docs;
 
-  console.log(MapsofAfroEurasia);
-  console.log(Paint);
+  // console.log(MapsofAfroEurasia);
+  // console.log(Paint);
 
   const documentID = [];
   //Also a good practice to separate reference instance
-  var Catdocument = projectFirestore.collection("category");
 
-  //Get them
-  Catdocument.get().then((querySnapshot) => {
-    //querySnapshot is "iteratable" itself
-    querySnapshot.forEach((CatDoc) => {
-      //userDoc contains all metadata of Firestore object, such as reference and id
-      //   console.log("category ID", CatDoc.id);
-
-      Catdocument.doc(CatDoc.id)
-        .collection("Article")
-        .get()
-        .then((querySnapshot) => {
-          //querySnapshot is "iteratable" itself
-          querySnapshot.forEach((ArtDoc) => {
-            //userDoc contains all metadata of Firestore object, such as reference and id
-            // console.log("Article ID", ArtDoc.id);
-            var userDocData = {};
-            //If you want to get doc data
-            userDocData = ArtDoc.data();
-            // console.dir(userDocData);
-            documentID[documentID.length] = userDocData;
-            setItems([
-              ...items,
-              userDocData
-            ]);
-            // documentID.push({
-            //   id: ArtDoc.id,
-            //   name: ArtDoc.name,
-            //   image: ArtDoc.image,
-            // });
-          });
+  useEffect(() => {
+    const Catdocument = projectFirestore
+      .collection("category")
+      .onSnapshot((querySnapshot) => {
+        let allItems = [];
+        //querySnapshot is "iteratable" itself
+        querySnapshot.forEach((CatDoc) => {
+          //userDoc contains all metadata of Firestore object, such as reference and id
+          //   console.log("category ID", CatDoc.id);
+          projectFirestore
+            .collection("category")
+            .doc(CatDoc.id)
+            .collection("Article")
+            .get()
+            .then((querySnapshot) => {
+              //querySnapshot is "iteratable" itself
+              querySnapshot.forEach((ArtDoc) => {
+                //userDoc contains all metadata of Firestore object, such as reference and id
+                // console.dir(ArtDoc);
+                allItems.push({ ...ArtDoc.data(), id: ArtDoc.id });
+              });
+            });
         });
-      //If you want to get doc data
-      //   var userDocData = CatDoc.data();
-      //   console.dir(userDocData);
-    });
-  });
+        setItems(allItems);
+      });
 
-  //   for (const x in docs) {
-  //     const y = projectFirestore
-  //       .collection("category")
-  //       .doc(x.id)
-  //       .collection("Article")
-  //       .get();
-  //     console.log("y", y);
-  //   }
+    return () => Catdocument();
+  }, []);
+  //Get them
 
-  console.log("type", typeof documentID);
+  console.log("type", typeof docs);
+  console.log("items array", docs);
+  console.log("documentID[0] ", docs[0]);
+  console.log("type of documentID[0]", typeof docs[0]);
+
   //   for (const x in documentID) {
   //     console.log("x", x);
   //   }
 
-  items.forEach(myFunction);
+  // items.forEach(myFunction);
 
-  function myFunction(value, index, array) {
-    console.log(value);
-    console.log(index);
-    console.log(array);
-  }
-  console.log("document ID ARRAY", documentID);
+  // function myFunction(value, index, array) {
+  //   console.log(value);
+  //   console.log(index);
+  //   console.log(array);
+  // }
 
-  documentID.map(function (element, index, array) {
-    console.log("element", element);
-    console.log(index);
-    console.log(array);
-    return element;
+  // items.map(function (element, index, array) {
+  //   console.log("element ", element);
+  //   console.log("index ", index);
+  //   console.log("array ", array);
+  //   return element;
+  // });
+
+  docs.map((doc) => {
+    console.log("docs ID in items", doc.id);
+    console.log("docs name in items", doc.name);
   });
 
-  documentID.map((doc) => console.log("doc data in documentID", doc.data()));
+  items.map((doc) => {
+    console.log("items ID in items", doc.id);
+    console.log("items name in items", doc.name);
+  });
 
-  //   const [articleData, setarticleData] = useState("");
-
-  //   var docRef = projectFirestore.collection("blog").doc(id);
-
-  //   useEffect(() => {
-  //     docRef
-  //       .get()
-  //       .then((doc) => {
-  //         if (doc.exists) {
-  //           console.log("Document data:", doc.data());
-  //           setarticleData(doc.data());
-  //         } else {
-  //           // doc.data() will be undefined in this case
-  //           console.log("No such document!");
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log("Error getting document:", error);
-  //       });
-  //   }, []);
-
-  //   console.log("articleData = ", articleData);
-
-  useEffect(() => {
-    async function getMarkers() {
-      //   const documents = [];
-      //   docs.forEach((doc) => {
-      //     documents[doc.id] = doc.data();
-      //   });
-      //   console.log("documents", documents);
-      //   const markers = [];
-      //   await projectFirestore
-      //     .collection("category")
-      //     .get()
-      //     .then((querySnapshot) => {
-      //       querySnapshot.docs.forEach((doc) => {
-      //         markers.push(doc.data());
-      //       });
-      //     });
-      //   console.log("markers", markers);
-      //   for (const x in markers) {
-      //     const y = projectFirestore
-      //       .collection("category")
-      //       .doc(x.id)
-      //       .collection("Article")
-      //       .get();
-      //     console.log("y", y);
-      //   }
-      //   return documents;
-    }
-    // Get reference to all of the documents
-  }, []);
-
-  // "category/qujoO8JON704I5cm5WYn/Article"
-  // const [articleList, setarticleList] = useState("");
-  // const { id } = useParams();
-  // console.log("id = ", id);
-  // console.log("doc = ", doc);
-
-  // var docRef = projectFirestore.collection("category").doc(id);
-
-  // useEffect(() => {
-  //   docRef
-  //     .get()
-  //     .then((doc) => {
-  //       if (doc.exists) {
-  //         console.log("Document data:", doc.data());
-  //         setarticleList(doc.data());
-  //       } else {
-  //         // doc.data() will be undefined in this case
-  //         console.log("No such document!");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error getting document:", error);
-  //     });
-  // }, []);
-
-  // console.log("articleData = ", articleList);
   return (
     <section className="pt-7 pt-md-10">
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {MapsofAfroEurasia &&
-              MapsofAfroEurasia.map((doc) => (
+            {docs &&
+              docs.map((doc) => (
                 <div
                   className="card card-row shadow-light-lg mb-6 lift lift-lg"
                   key={doc.id}
