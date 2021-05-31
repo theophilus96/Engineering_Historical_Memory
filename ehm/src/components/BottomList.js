@@ -4,6 +4,10 @@ import { projectFirestore } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 
 export default function BottomList() {
+
+  const [items, setItems] = useState([]);
+  const [itemName, setItemName] = useState("");
+
   const { docs } = useFirestore("category");
   console.log(docs);
 
@@ -39,6 +43,10 @@ export default function BottomList() {
             userDocData = ArtDoc.data();
             // console.dir(userDocData);
             documentID[documentID.length] = userDocData;
+            setItems([
+              ...items,
+              userDocData
+            ]);
             // documentID.push({
             //   id: ArtDoc.id,
             //   name: ArtDoc.name,
@@ -66,7 +74,7 @@ export default function BottomList() {
   //     console.log("x", x);
   //   }
 
-  documentID.forEach(myFunction);
+  items.forEach(myFunction);
 
   function myFunction(value, index, array) {
     console.log(value);
