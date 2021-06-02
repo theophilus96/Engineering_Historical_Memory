@@ -19935,9 +19935,10 @@ a.card:hover {
   justify-content: center;
   width: calc(1.6em + 1.625rem + 2px);
   height: calc(1.6em + 1.625rem + 2px);
-  background-color: #335eea;
+  /* background-color: #335eea; */
   box-shadow: 0 0.5rem 1.5rem rgba(22, 28, 45, 0.05);
   color: #fff;
+  z-index: 1;
 }
 .flickity-button:after,
 .flickity-button:before {
@@ -19945,7 +19946,7 @@ a.card:hover {
 }
 .flickity-button:focus,
 .flickity-button:hover {
-  background-color: #335eea;
+  /* background-color: #335eea; */
   box-shadow: 0 0.5rem 1.5rem rgba(22, 28, 45, 0.1);
 }
 .flickity-button.previous {

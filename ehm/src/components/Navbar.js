@@ -290,16 +290,16 @@ export default function Navbar() {
                         <div className="row gx-0">
                           <div className="col-6">
                             {/* Heading */}
-                            <h6 className="dropdown-header">Types</h6>
+                            <h6 className="dropdown-header"></h6>
 
                             {/* List */}
-                            <Link className="dropdown-item" to="/company">
+                            <Link className="dropdown-item" to="/about">
                               About
                             </Link>
-                            <a className="dropdown-item" href="./rental.html">
+                            <a className="dropdown-item" href="#">
                               Terms of Use
                             </a>
-                            <a className="dropdown-item mb-5" href="./job.html">
+                            <a className="dropdown-item mb-5" href="#">
                               Credits
                             </a>
                           </div>
@@ -361,7 +361,7 @@ export default function Navbar() {
                 </div>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to={user ? "/profile" : "/login"}>
+                <Link className="nav-link" to={user ? "#" : "#"}>
                   {!user ? "Guest" : userName}
                 </Link>
               </li>
