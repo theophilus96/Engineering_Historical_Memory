@@ -178,13 +178,13 @@ sup {
   top: -0.5em;
 }
 a {
-  /* color: #335eea; */
-  color: #000;
+  color: #335eea;
+  /* color: #000; */
   text-decoration: none;
 }
 a:hover {
-  /* color: #294bbb; */
-  color: #22A6A7;
+  color: #294bbb;
+  /* color: #22A6A7; */
   text-decoration: underline;
 }
 a:not([href]):not([class]),
@@ -19978,7 +19978,7 @@ a.card:hover {
 }
 .flickity-button-white .flickity-button {
   background-color: #fff;
-  color: #335eea;
+  /* color: #335eea; */
 }
 .flickity-button-bottom .flickity-button {
   top: auto;

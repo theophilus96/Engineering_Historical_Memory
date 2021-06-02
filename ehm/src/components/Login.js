@@ -57,13 +57,29 @@ export default function Login() {
                 />
               </div>
 
-              <button className="btn w-100 btn-EasternBlue" type="submit">
+              <button
+                className="btn w-100 btn-EasternBlue"
+                type="submit"
+                onClick={signIn}
+              >
                 Sign in
               </button>
             </form>
 
             <p className="mb-0 fs-sm text-center text-muted">
-              Don't have an account yet <a href="/signup">Sign up</a>.
+              Don't have an account yet{" "}
+              <a
+                style={{
+                  color: "#22A6A7",
+                  "&:hover": {
+                    color: "#000",
+                  },
+                }}
+                href="/signup"
+              >
+                Sign up
+              </a>
+              .
             </p>
           </div>
         </div>

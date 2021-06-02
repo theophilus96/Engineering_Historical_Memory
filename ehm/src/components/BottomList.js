@@ -92,8 +92,8 @@ export default function BottomList() {
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {docs &&
-              docs.map((doc) => (
+            {MapsofAfroEurasia &&
+              MapsofAfroEurasia.map((doc) => (
                 <div
                   className="card card-row shadow-light-lg mb-6 lift lift-lg"
                   key={doc.id}

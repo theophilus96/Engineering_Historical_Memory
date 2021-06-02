@@ -13,12 +13,14 @@ import { useStateValue } from "../state/StateProvider";
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className={className + "flickity-button"} onClick={onClick}>
-      <button
-        className="flickity-button flickity-prev-next-button previous"
-        type="button"
-        aria-label="Previous"
-      ></button>
+    <div
+      className={className}
+      style={{}}
+      onClick={onClick}
+    >
+      <button class="btn btn-white btn-rounded-circle mb-1">
+        <i class="fe fe-arrow-right"></i>
+      </button>
     </div>
   );
 }
@@ -26,12 +28,14 @@ function SampleNextArrow(props) {
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div className={className + "flickity-button"} onClick={onClick}>
-      <button
-        className="flickity-button flickity-prev-next-button next"
-        type="button"
-        aria-label="Previous"
-      ></button>
+    <div
+      className={className}
+      style={{}}
+      onClick={onClick}
+    >
+      <button class="btn btn-white btn-rounded-circle mb-1">
+        <i class="fe fe-arrow-left"></i>
+      </button>
     </div>
   );
 }
@@ -115,7 +119,6 @@ function Carousel() {
     <section className="pt-7 pt-md-10 pb-7 bg-light">
       <div className="container">
         <div className="row">
-          <h2>Auto Play</h2>
           <Slider {...settings}>
             {docs &&
               docs.map((doc) => (

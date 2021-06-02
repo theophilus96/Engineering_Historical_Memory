@@ -48,9 +48,9 @@ export default function VideoModal() {
           overlay: {
             background: "rgba(0, 0, 0, 0.5)",
           },
-          closeButton: {
-            background: "gray",
-          },
+          // closeButton: {
+          //   background: "gray",
+          // },
         }}
         closeIcon={closeIcon}
       >
