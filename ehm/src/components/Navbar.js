@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import "../css/EHMtheme.css"
 //state
 import { auth, projectFirestore } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
@@ -370,11 +370,11 @@ export default function Navbar() {
             {/* Button */}
 
             <a
-              className="navbar-btn btn btn-sm btn-primary-desat lift ms-auto"
+              className="navbar-btn btn btn-sm btn-EasternBlue lift ms-auto"
               href={!user ? "/login" : "#!"}
               onClick={handleAuthentication}
             >
-              {user ? "Sign Out" : "Sign In"}
+              {user ? "Sign Out" : "Log In"}
             </a>
           </div>
         </div>

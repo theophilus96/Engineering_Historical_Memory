@@ -57,7 +57,7 @@ export default function Login() {
                 />
               </div>
 
-              <button className="btn w-100 btn-primary" type="submit">
+              <button className="btn w-100 btn-EasternBlue" type="submit">
                 Sign in
               </button>
             </form>

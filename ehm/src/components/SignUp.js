@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { auth } from "../firebase/config";
 import { projectFirestore } from "../firebase/config";
 
+
 export default function SignUp() {
   const history = useHistory();
   const [email, setEmail] = useState("");
@@ -115,7 +116,7 @@ export default function SignUp() {
               </div>
 
               <button
-                className="btn w-100 btn-primary"
+                className="btn w-100 btn-EasternBlue"
                 type="submit"
                 onClick={register}
               >

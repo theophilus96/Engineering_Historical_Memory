@@ -42,7 +42,7 @@ export default function ListWelcome(doc) {
                 {categoryData.name}
               </h1>
 
-              <p className="lead mb-0 text-white-75">Some words on {categoryData.name}</p>
+              <p className="lead mb-0 text-white-75">{categoryData.description}</p>
             </div>
           </div>
         </div>

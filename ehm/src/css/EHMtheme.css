@@ -1,0 +1,39 @@
+.btn-EasternBlue {
+    color: #fff;
+    background-color: #22A6A7;
+    border-color: #22A6A7;
+    box-shadow: none;
+  }
+  .btn-check:focus + .btn-EasternBlue,
+  .btn-EasternBlue:focus,
+  .btn-EasternBlue:hover {
+    color: #fff;
+    background-color: #1e9596;
+    border-color: #1e9596;
+  }
+  .btn-check:focus + .btn-EasternBlue,
+  .btn-EasternBlue:focus {
+    box-shadow: none, 0 0 0 0 rgba(34,166,167, 0.8)
+  }
+  .btn-check:active + .btn-EasternBlue,
+  .btn-check:checked + .btn-EasternBlue,
+  .btn-EasternBlue.active,
+  .btn-EasternBlue:active,
+  .show > .btn-EasternBlue.dropdown-toggle {
+    color: #fff;
+    background-color: #1e9596;
+    border-color: #1e9596;
+  }
+  .btn-check:active + .btn-EasternBlue:focus,
+  .btn-check:checked + .btn-EasternBlue:focus,
+  .btn-EasternBlue.active:focus,
+  .btn-EasternBlue:active:focus,
+  .show > .btn-EasternBlue.dropdown-toggle:focus {
+    box-shadow: none, 0 0 0 0 rgba(34,166,167, 0.8);
+  }
+  .btn-EasternBlue.disabled,
+  .btn-EasternBlue:disabled {
+    color: #fff;
+    background-color: #22A6A7;
+    border-color: #22A6A7;
+  }
