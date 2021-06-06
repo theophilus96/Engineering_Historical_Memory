@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../css/EHMtheme.css"
+import "../css/EHMtheme.css";
 //state
 import { auth, projectFirestore } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
@@ -264,7 +264,11 @@ export default function Navbar() {
                 </ul>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" id="navbarAccount" to="/researchteam">
+                <Link
+                  className="nav-link"
+                  id="navbarAccount"
+                  to="/researchteam"
+                >
                   Research Team
                 </Link>
               </li>
@@ -291,14 +295,13 @@ export default function Navbar() {
                           <div className="col-6">
                             {/* Heading */}
                             <h6 className="dropdown-header"></h6>
-
                             {/* List */}
                             <Link className="dropdown-item" to="/about">
                               About
                             </Link>
-                            <a className="dropdown-item" href="#">
+                            <Link className="dropdown-item" to="/term">
                               Terms of Use
-                            </a>
+                            </Link>
                             <a className="dropdown-item mb-5" href="#">
                               Credits
                             </a>

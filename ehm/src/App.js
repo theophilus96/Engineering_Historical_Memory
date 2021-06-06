@@ -17,6 +17,7 @@ import SignUp from "./components/SignUp";
 import Home from "./pages/Home";
 import ArticlesList from "./pages/ArticlesList";
 import AboutPage from "./pages/AboutPage";
+import TermPage from "./pages/TermPage";
 //articles
 import Framauro from "./articles/Framauro";
 //research Team
@@ -59,10 +60,14 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/article/framauro" component={Framauro} />
-          <Route exact path="/category/:CatId/article/:id" component={Framauro} />
+          <Route
+            exact
+            path="/category/:CatId/article/:id"
+            component={Framauro}
+          />
           <Route exact path="/researchteam" component={researchTeam} />
           <Route exact path="/about" component={AboutPage} />
-
+          <Route exact path="/term" component={TermPage} />
         </Switch>
       </Router>
     </div>
