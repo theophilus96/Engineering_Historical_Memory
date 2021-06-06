@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { projectFirestore } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 import { Link } from "react-router-dom";
+import { useStateValue } from "../state/StateProvider";
 
 export default function ListArticles(doc) {
   // console.log("doc for list articles", doc);
@@ -11,6 +12,8 @@ export default function ListArticles(doc) {
   console.log("list category => doc = ", doc);
   const { docs } = useFirestore("category/" + CatId + "/Article");
   console.log("list category => ", docs);
+
+  const [{ user }] = useStateValue();
 
   // const [articleList, setarticleList] = useState("");
 
@@ -42,7 +45,10 @@ export default function ListArticles(doc) {
             {docs &&
               docs.map((doc) => (
                 <div
-                  className="card card-row shadow-light-lg mb-6 lift lift-lg"
+                  className={
+                    "card card-row shadow-light-lg mb-6 lift lift-lg" +
+                    (doc.auth && !user ? " special-card" : "")
+                  }
                   key={doc.id}
                 >
                   <div className="row gx-0">
@@ -53,7 +59,11 @@ export default function ListArticles(doc) {
                     </div>
 
                     <Link
-                      to={`/category/${CatId}/article/${doc.id}`}
+                      to={
+                        doc.auth && !user
+                          ? "#"
+                          : `/category/${CatId}/article/${doc.id}`
+                      }
                       className="col-12 col-md-6 order-md-2 bg-cover card-img-end"
                       style={{
                         backgroundImage: `url(${doc.image})`,
@@ -65,7 +75,15 @@ export default function ListArticles(doc) {
                         className="img-fluid d-md-none invisible"
                       />
 
-                      <div className="shape shape-start shape-fluid-y text-white d-none d-md-block">
+                      <div
+                        className={
+                          "shape shape-start shape-fluid-y " +
+                          (doc.auth && !user
+                            ? "text-special-opacity"
+                            : "text-white") +
+                          " d-none d-md-block"
+                        }
+                      >
                         <svg
                           viewBox="0 0 112 690"
                           fill="none"
@@ -81,7 +99,11 @@ export default function ListArticles(doc) {
                     <div className="col-12 col-md-6 order-md-1">
                       <Link
                         className="card-body"
-                        to={`/category/${CatId}/article/${doc.id}`}
+                        to={
+                          doc.auth && !user
+                            ? "#"
+                            : `/category/${CatId}/article/${doc.id}`
+                        }
                       >
                         <h3>{doc.name}</h3>
 
