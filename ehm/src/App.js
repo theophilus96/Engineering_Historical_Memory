@@ -19,6 +19,7 @@ import ArticlesList from "./pages/ArticlesList";
 import AboutPage from "./pages/AboutPage";
 import TermPage from "./pages/TermPage";
 import CreditsPage from "./pages/CreditsPage";
+import ContactPage from "./pages/ContactPage";
 //articles
 import Framauro from "./articles/Framauro";
 //research Team
@@ -70,6 +71,7 @@ function App() {
           <Route exact path="/about" component={AboutPage} />
           <Route exact path="/term" component={TermPage} />
           <Route exact path="/credits" component={CreditsPage} />
+          <Route exact path="/contact" component={ContactPage} />
         </Switch>
       </Router>
     </div>

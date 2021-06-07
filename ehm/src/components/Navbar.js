@@ -305,6 +305,9 @@ export default function Navbar() {
                             <Link className="dropdown-item" to="/credits">
                               Credits
                             </Link>
+                            <Link className="dropdown-item" to="#">
+                              Contact us
+                            </Link>
                           </div>
                         </div>{" "}
                         {/* / .row */}
@@ -314,7 +317,7 @@ export default function Navbar() {
                   {/* / .row */}
                 </div>
               </li>
-              <li className="nav-item dropdown">
+              {/* <li className="nav-item dropdown">
                 <a
                   className="nav-link dropdown-toggle"
                   id="navbarDocumentation"
@@ -331,7 +334,6 @@ export default function Navbar() {
                 >
                   <div className="list-group list-group-flush">
                     <a className="list-group-item" href="/contact">
-                      {/* Icon */}
                       <svg
                         width="24"
                         height="24"
@@ -346,15 +348,10 @@ export default function Navbar() {
                           ></path>
                         </g>
                       </svg>
-
-                      {/* Content */}
                       <div className="ms-4">
-                        {/* Heading */}
                         <h6 className="fw-bold text-uppercase text-primary mb-0">
                           Contact
                         </h6>
-
-                        {/* Text */}
                         <p className="fs-sm text-gray-700 mb-0">
                           Let us help you
                         </p>
@@ -362,10 +359,10 @@ export default function Navbar() {
                     </a>
                   </div>
                 </div>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to={user ? "#" : "#"}>
-                  {!user ? "Guest" : userName}
+                  {!user ? "" : userName}
                 </Link>
               </li>
             </ul>
