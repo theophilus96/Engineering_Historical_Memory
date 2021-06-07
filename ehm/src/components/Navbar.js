@@ -294,7 +294,7 @@ export default function Navbar() {
                         <div className="row gx-0">
                           <div className="col-6">
                             {/* Heading */}
-                            <h6 className="dropdown-header"></h6>
+                            {/* <h6 className="dropdown-header"></h6> */}
                             {/* List */}
                             <Link className="dropdown-item" to="/about">
                               About
@@ -302,9 +302,9 @@ export default function Navbar() {
                             <Link className="dropdown-item" to="/term">
                               Terms of Use
                             </Link>
-                            <a className="dropdown-item mb-5" href="#">
+                            <Link className="dropdown-item" to="/credits">
                               Credits
-                            </a>
+                            </Link>
                           </div>
                         </div>{" "}
                         {/* / .row */}

@@ -22,12 +22,12 @@ export default function Terms() {
           </div>
         </div>
         <div class="row">
-          <p class="fs-lg text-gray-800 mb-6 mb-md-8">
+          <p class="fs-lg text-gray-800 mb-2 mb-md-4">
             Welcome to the website (the “Site”) of Engineering Historical Memory
             (EHM).
           </p>
 
-          <p class="fs-lg text-gray-800 mb-9 mb-md-11">
+          <p class="fs-lg text-gray-800 mb-6 mb-md-8">
             The words ‘we’, ‘our’ and ‘us’ refer to the owner of the domain and
             facilitator of the website, Dr Andrea Nanetti, his research team,
             and co-funding institutions. The word ‘you’ refers to the user or
