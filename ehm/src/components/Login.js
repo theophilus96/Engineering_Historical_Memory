@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "../firebase/config";
+import {
+  projectFirestore,
+  googleProvider,
+  signInWithGoogle,
+  auth,
+} from "../firebase/config";
+import { Redirect } from "react-router-dom";
+
 //picture
 export default function Login() {
   const history = useHistory();
@@ -17,6 +24,48 @@ export default function Login() {
       .catch((error) => alert(error.message));
   };
 
+  const signInWithGoogle = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(googleProvider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
+        console.log("credential from google", credential);
+
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = credential.accessToken;
+        console.log("token from google", token);
+
+        // The signed-in user info.
+        var user = result.user;
+        console.log("user from google", user);
+        console.log("user displayName from google", user.displayName);
+        console.log("user uid from google", user.uid);
+        logUser(user.uid, user.displayName);
+
+        // ...
+        history.push("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+  };
+
+  function logUser(id, displayName) {
+    projectFirestore.collection("users").doc(id).set({
+      name: displayName,
+      role: "",
+      company: "",
+    });
+  }
   return (
     <section className="section-border border-primary">
       <div className="container d-flex flex-column">
@@ -64,6 +113,20 @@ export default function Login() {
               >
                 Sign in
               </button>
+              <p className="mt-6 mb-6 text-center text-muted">
+                or sign in using
+              </p>
+              <button
+                className="btn w-100 btn"
+                type="submit"
+                onClick={signInWithGoogle}
+              >
+                <img
+                  className="google-icon"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  alt="google icon"
+                />
+              </button>
             </form>
 
             <p className="mb-0 fs-sm text-center text-muted">
@@ -79,7 +142,6 @@ export default function Login() {
               >
                 Sign up
               </a>
-              .
             </p>
           </div>
         </div>

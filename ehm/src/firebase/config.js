@@ -4,6 +4,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/performance";
 import "firebase/analytics";
+import { GoogleAuthProvider } from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -13,7 +14,7 @@ const firebaseConfig = {
   storageBucket: "engineeringhistoricalmem-27d5c.appspot.com",
   messagingSenderId: "374238412862",
   appId: "1:374238412862:web:3fd9e1a90526ffca76d16f",
-  measurementId: "G-LWC9JLGCVS"
+  measurementId: "G-LWC9JLGCVS",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -25,4 +26,16 @@ const auth = firebase.auth();
 const perf = firebase.performance();
 const analytics = firebase.analytics();
 
-export { projectStorage, projectFirestore, timestamp, auth, perf, analytics };
+var googleProvider = new firebase.auth.GoogleAuthProvider();
+
+
+
+export {
+  projectStorage,
+  projectFirestore,
+  timestamp,
+  auth,
+  perf,
+  analytics,
+  googleProvider,
+};

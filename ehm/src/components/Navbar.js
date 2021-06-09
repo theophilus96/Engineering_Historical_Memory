@@ -8,7 +8,16 @@ export default function Navbar() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
 
+  var person = auth.currentUser;
+
+  // if (person != null) {
+  //   setUserName(person.displayName);
+  // }
+
   useEffect(() => {
+    if (person != null) {
+      setUserName(person.displayName);
+    }
     if (user) {
       projectFirestore
         .collection("users")
@@ -20,9 +29,9 @@ export default function Navbar() {
           },
           (doc) =>
             console.log(
-              "user documents",
-              doc.data().name,
-              setUserName(doc.data().name)
+              "user documents"
+              // doc.data().name,
+              // setUserName(doc.data().name)
             )
         );
     }
