@@ -5,12 +5,14 @@ export default function Contact() {
     <div>
       <section
         class="py-10 py-md-14 overlay overlay-black overlay-60 bg-cover"
-        // style="background-image: url(assets/img/covers/cover-5.jpg);"
+        style={{
+          backgroundImage: `url("https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=706&q=80")`,
+        }}
       >
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-8 text-center">
-              <h1 class="display-2 fw-bold text-white">We’re Here to Help.</h1>
+              <h1 class="display-2 fw-bold text-white">Contact Us</h1>
 
               <p class="lead text-white-75 mb-0">
                 We always want to hear from you! Let us know how we can best
@@ -45,7 +47,7 @@ export default function Contact() {
                 class="btn btn-white btn-rounded-circle shadow mt-n11 mt-md-n13"
                 data-scroll
               >
-                <i class="fe fe-arrow-down"></i>
+                <i class="fe fe-arrow-down" style={{ color: "#22a6a7" }}></i>
               </a>
             </div>
           </div>
@@ -54,8 +56,8 @@ export default function Contact() {
               <h6 class="text-uppercase text-gray-700 mb-1">Message us</h6>
 
               <div class="mb-5 mb-md-0">
-                <a href="#!" class="h4 text-primary">
-                  Start a chat!
+                <a href="#!" class="h4 text-EasternBlue">
+                  Start a chat! (further implementation)
                 </a>
               </div>
             </div>
@@ -63,16 +65,16 @@ export default function Contact() {
               <h6 class="text-uppercase text-gray-700 mb-1">Call anytime</h6>
 
               <div class="mb-5 mb-md-0">
-                <a href="#!" class="h4">
-                  (555) 123-4567
+                <a href="#!" class="h4 text-EasternBlue">
+                  (+65 ) 6513 8250
                 </a>
               </div>
             </div>
             <div class="col-12 col-md-4 text-center">
               <h6 class="text-uppercase text-gray-700 mb-1">Email us</h6>
 
-              <a href="#!" class="h4">
-                support@goodthemes.co
+              <a href="#!" class="h4 text-EasternBlue">
+                andrea.nanetti@ntu.edu.sg
               </a>
             </div>
           </div>
@@ -142,7 +144,7 @@ export default function Contact() {
                 </div>
                 <div class="row justify-content-center">
                   <div class="col-auto">
-                    <button type="submit" class="btn btn-primary lift">
+                    <button type="submit" class="btn btn-EasternBlue lift">
                       Send message
                     </button>
                   </div>
