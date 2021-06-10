@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import {
   projectFirestore,
   googleProvider,
-  signInWithGoogle,
+  facebookProvider,
   auth,
 } from "../firebase/config";
 import { Redirect } from "react-router-dom";
@@ -31,17 +31,8 @@ export default function Login() {
       .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
-        console.log("credential from google", credential);
-
-        // This gives you a Google Access Token. You can use it to access the Google API.
         var token = credential.accessToken;
-        console.log("token from google", token);
-
-        // The signed-in user info.
         var user = result.user;
-        console.log("user from google", user);
-        console.log("user displayName from google", user.displayName);
-        console.log("user uid from google", user.uid);
         logUser(user.uid, user.displayName);
 
         // ...
@@ -55,6 +46,40 @@ export default function Login() {
         var email = error.email;
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
+        // ...
+      });
+  };
+
+  // need to ask khoi for facebook App ID and App secret.
+  // as well as add this OAuth redirect URI to the Facebook app configuration
+  // https://engineeringhistoricalmem-27d5c.firebaseapp.com/__/auth/handler
+  const signInWithFacebook = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(facebookProvider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
+        console.log("credential from facebook", credential);
+        var user = result.user;
+        console.log("user from facebook", user);
+        // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        var accessToken = credential.accessToken;
+        console.log("token from facebook", accessToken);
+        // ...
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        console.log("errorCode from facebook", errorCode);
+        var errorMessage = error.message;
+        console.log("errorMessage from facebook", errorMessage);
+        // The email of the user's account used.
+        var email = error.email;
+        console.log("error email from facebook", email);
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        console.log("error credential from facebook", credential);
         // ...
       });
   };
@@ -125,6 +150,18 @@ export default function Login() {
                   className="google-icon"
                   src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                   alt="google icon"
+                />
+              </button>
+
+              <button
+                className="btn w-100 btn"
+                type="submit"
+                onClick={signInWithFacebook}
+              >
+                <img
+                  className="facebook-icon"
+                  src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png"
+                  alt="facebook icon"
                 />
               </button>
             </form>

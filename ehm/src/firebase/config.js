@@ -4,7 +4,6 @@ import "firebase/firestore";
 import "firebase/auth";
 import "firebase/performance";
 import "firebase/analytics";
-import { GoogleAuthProvider } from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -27,8 +26,7 @@ const perf = firebase.performance();
 const analytics = firebase.analytics();
 
 var googleProvider = new firebase.auth.GoogleAuthProvider();
-
-
+var facebookProvider = new firebase.auth.FacebookAuthProvider();
 
 export {
   projectStorage,
@@ -38,4 +36,5 @@ export {
   perf,
   analytics,
   googleProvider,
+  facebookProvider,
 };
