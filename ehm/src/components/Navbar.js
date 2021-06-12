@@ -314,7 +314,7 @@ export default function Navbar() {
                             <Link className="dropdown-item" to="/credits">
                               Credits
                             </Link>
-                            <Link className="dropdown-item" to="#">
+                            <Link className="dropdown-item" to="/contact">
                               Contact us
                             </Link>
                           </div>

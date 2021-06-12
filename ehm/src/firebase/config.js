@@ -27,6 +27,7 @@ const analytics = firebase.analytics();
 
 var googleProvider = new firebase.auth.GoogleAuthProvider();
 var facebookProvider = new firebase.auth.FacebookAuthProvider();
+var twitterProvider = new firebase.auth.TwitterAuthProvider();
 
 export {
   projectStorage,
@@ -37,4 +38,5 @@ export {
   analytics,
   googleProvider,
   facebookProvider,
+  twitterProvider,
 };

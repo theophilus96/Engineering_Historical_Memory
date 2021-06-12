@@ -4,6 +4,7 @@ import {
   projectFirestore,
   googleProvider,
   facebookProvider,
+  twitterProvider,
   auth,
 } from "../firebase/config";
 import { Redirect } from "react-router-dom";
@@ -53,6 +54,11 @@ export default function Login() {
   // need to ask khoi for facebook App ID and App secret.
   // as well as add this OAuth redirect URI to the Facebook app configuration
   // https://engineeringhistoricalmem-27d5c.firebaseapp.com/__/auth/handler
+
+  //API Key
+  //API secret
+  //To complete set up, add this callback URL to your Twitter app configuration. Learn more
+  //https://engineeringhistoricalmem-27d5c.firebaseapp.com/__/auth/handler
   const signInWithFacebook = (e) => {
     e.preventDefault();
     auth
@@ -67,6 +73,7 @@ export default function Login() {
         var accessToken = credential.accessToken;
         console.log("token from facebook", accessToken);
         // ...
+        history.push("/");
       })
       .catch((error) => {
         // Handle Errors here.
@@ -84,11 +91,49 @@ export default function Login() {
       });
   };
 
-  function logUser(id, displayName) {
+  const signInWithTwitter = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(twitterProvider)
+      .then((result) => {
+        /** @type {firebase.auth.OAuthCredential} */
+        var credential = result.credential;
+
+        // This gives you a the Twitter OAuth 1.0 Access Token and Secret.
+        // You can use these server side with your app's credentials to access the Twitter API.
+        var token = credential.accessToken;
+        var secret = credential.secret;
+
+        // The signed-in user info.
+        var user = result.user;
+        console.log("user from twitter", user);
+        logUser(user.uid, user.displayName, user.photoURL);
+
+        // ...
+        history.push("/");
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        var errorCode = error.code;
+        console.log("errorCode from twitter", errorCode);
+        var errorMessage = error.message;
+        console.log("errorMessage from twitter", errorMessage);
+        // The email of the user's account used.
+        var email = error.email;
+        console.log("error email from twitter", email);
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        console.log("error credential from twitter", credential);
+        // ...
+      });
+  };
+
+  function logUser(id, displayName, image) {
     projectFirestore.collection("users").doc(id).set({
       name: displayName,
       role: "",
       company: "",
+      image: image,
     });
   }
   return (
@@ -142,19 +187,19 @@ export default function Login() {
                 or sign in using
               </p>
               <button
-                className="btn w-100 btn"
+                className="btn w-30 btn"
                 type="submit"
                 onClick={signInWithGoogle}
               >
                 <img
                   className="google-icon"
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  src="http://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png"
                   alt="google icon"
                 />
               </button>
 
               <button
-                className="btn w-100 btn"
+                className="btn w-30 btn"
                 type="submit"
                 onClick={signInWithFacebook}
               >
@@ -162,6 +207,18 @@ export default function Login() {
                   className="facebook-icon"
                   src="https://cdn3.iconfinder.com/data/icons/capsocial-round/500/facebook-512.png"
                   alt="facebook icon"
+                />
+              </button>
+
+              <button
+                className="btn w-30 btn"
+                type="submit"
+                onClick={signInWithTwitter}
+              >
+                <img
+                  className="twitter-icon"
+                  src="https://www.creativefreedom.co.uk/wp-content/uploads/2017/06/Twitter-featured.png"
+                  alt="twitter icon"
                 />
               </button>
             </form>
