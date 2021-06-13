@@ -3,9 +3,33 @@ import { projectFirestore } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 
 export default function Contact() {
+  const [{ user }] = useStateValue();
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+
+  console.log(user);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    projectFirestore
+      .collection("message")
+      .add({
+        name: fullName,
+        email,
+        message,
+        user: {
+          displayName: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          phoneNumber: user.phoneNumber,
+        },
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .then(() => setFullName(""), setEmail(""), setMessage(""));
+  };
 
   return (
     <div>
@@ -101,7 +125,7 @@ export default function Contact() {
           </div>
           <div class="row justify-content-center">
             <div class="col-12 col-md-12 col-lg-10">
-              <form>
+              <form onSubmit={onSubmit}>
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group mb-5">
