@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { projectFirestore } from "../firebase/config";
+import { useStateValue } from "../state/StateProvider";
 
 export default function Contact() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
   return (
     <div>
       <section
@@ -105,9 +111,11 @@ export default function Contact() {
 
                       <input
                         class="form-control"
-                        id="contactName"
+                        id="fullName"
                         type="text"
                         placeholder="Full name"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
                       />
                     </div>
                   </div>
@@ -122,6 +130,8 @@ export default function Contact() {
                         id="contactEmail"
                         type="email"
                         placeholder="hello@domain.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                   </div>
@@ -138,6 +148,8 @@ export default function Contact() {
                         id="contactMessage"
                         rows="5"
                         placeholder="Tell us what we can help you with!"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
                       ></textarea>
                     </div>
                   </div>

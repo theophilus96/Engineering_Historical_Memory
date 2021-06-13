@@ -35,8 +35,6 @@ export default function Login() {
         var token = credential.accessToken;
         var user = result.user;
         logUser(user.uid, user.displayName);
-
-        // ...
         history.push("/");
       })
       .catch((error) => {
