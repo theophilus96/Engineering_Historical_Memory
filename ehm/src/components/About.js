@@ -50,30 +50,30 @@ export default function About() {
                 <h4>Dr Andrea Nanetti </h4>
 
                 <div class="avatar avatar-xxl mt-2 mb-2">
-                  <img src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1576&q=80" alt="..." class="avatar-img rounded-circle"/>
+                  <img
+                    src="https://media-exp3.licdn.com/dms/image/C5103AQEQ7eYMFgJXBQ/profile-displayphoto-shrink_200_200/0/1578821974147?e=1629331200&v=beta&t=Z_g1bhzHqGcKgEGXAT_6qoUCw-3V3oye0IXLSHuivQA"
+                    alt="..."
+                    class="avatar-img rounded-circle"
+                  />
                 </div>
 
                 <p class="fs-sm text-gray-800 mb-5">
-                  Some Words
+                  Engineering Historical Memory, Founding Director of LIBER Lab
                 </p>
 
-                <h6 class="fw-bold text-uppercase text-gray-700 mb-2">
-                  Phone
-                </h6>
+                <h6 class="fw-bold text-uppercase text-gray-700 mb-2">Phone</h6>
 
                 <p class="fs-sm mb-5">
                   <a href="tel:555-123-4567" class="text-reset">
-                    (+65) 123-4567
+                    (+65) 6513-8250
                   </a>
                 </p>
 
-                <h6 class="fw-bold text-uppercase text-gray-700 mb-2">
-                  Email
-                </h6>
+                <h6 class="fw-bold text-uppercase text-gray-700 mb-2">Email</h6>
 
                 <p class="fs-sm mb-0">
                   <a href="mailto:support@goodthemes.co" class="text-reset">
-                    123@456.com
+                    andrea.nanetti@ntu.edu.sg
                   </a>
                 </p>
               </div>

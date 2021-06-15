@@ -10,11 +10,6 @@ export default function Terms() {
 
             <p class="fs-lg text-gray-700 mb-md-0">Updated 29 November 2019</p>
           </div>
-          <div class="col-auto">
-            <a href="#!" class="btn btn-primary-soft">
-              Cite
-            </a>
-          </div>
         </div>
         <div class="row">
           <div class="col-12">

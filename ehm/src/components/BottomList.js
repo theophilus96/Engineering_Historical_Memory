@@ -88,7 +88,7 @@ export default function BottomList() {
   });
 
   return (
-    <section className="pt-7 pt-md-10">
+    <section className="pt-7 pt-md-10 bg-light">
       <div className="container">
         <div className="row">
           <div className="col-12">

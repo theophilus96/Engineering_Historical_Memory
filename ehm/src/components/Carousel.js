@@ -7,17 +7,11 @@ import Slider from "react-slick";
 import { Link } from "react-router-dom";
 //hooks
 import useFirestore from "../hooks/useFirestore";
-import { projectFirestore } from "../firebase/config";
-import { useStateValue } from "../state/StateProvider";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={className}
-      style={{}}
-      onClick={onClick}
-    >
+    <div className={className} style={{}} onClick={onClick}>
       <button class="btn btn-white btn-rounded-circle mb-1">
         <i class="fe fe-arrow-right"></i>
       </button>
@@ -28,11 +22,7 @@ function SampleNextArrow(props) {
 function SamplePrevArrow(props) {
   const { className, style, onClick } = props;
   return (
-    <div
-      className={className}
-      style={{}}
-      onClick={onClick}
-    >
+    <div className={className} style={{}} onClick={onClick}>
       <button class="btn btn-white btn-rounded-circle mb-1">
         <i class="fe fe-arrow-left"></i>
       </button>
@@ -56,8 +46,8 @@ function Carousel() {
     slidesToScroll: 1,
     swipeToSlide: true,
     autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 2000,
+    speed: 3000,
+    autoplaySpeed: 3000,
     cssEase: "linear",
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -116,7 +106,7 @@ function Carousel() {
   // });
 
   return (
-    <section className="pt-7 pt-md-10 pb-7 bg-light">
+    <section id="sectionTwo" className="pt-7 pt-md-10 pb-7 bg-light">
       <div className="container">
         <div className="row">
           <Slider {...settings}>

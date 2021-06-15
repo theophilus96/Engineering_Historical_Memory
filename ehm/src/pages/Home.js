@@ -10,10 +10,10 @@ export default function Home() {
 
   return (
     <div>
+      <VideoModal />
       <Welcome />
       <Carousel />
       {/* <Category /> */}
-      <VideoModal />
       <BottomList />
     </div>
   );

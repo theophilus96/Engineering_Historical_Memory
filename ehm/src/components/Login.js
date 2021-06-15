@@ -34,7 +34,7 @@ export default function Login() {
         var credential = result.credential;
         var token = credential.accessToken;
         var user = result.user;
-        logUser(user.uid, user.displayName);
+        logUser(user.uid, user.displayName, user.photoURL);
         history.push("/");
       })
       .catch((error) => {
@@ -70,6 +70,7 @@ export default function Login() {
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var accessToken = credential.accessToken;
         console.log("token from facebook", accessToken);
+        logUser(user.uid, user.displayName, user.photoURL);
         // ...
         history.push("/");
       })
@@ -191,7 +192,7 @@ export default function Login() {
               >
                 <img
                   className="google-icon"
-                  src="http://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png"
+                  src="https://www.pngitem.com/pimgs/m/118-1181708_google-icon-google-logo-design-flaws-hd-png.png"
                   alt="google icon"
                 />
               </button>

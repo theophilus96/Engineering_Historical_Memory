@@ -3,8 +3,8 @@ import TextTransition, { presets } from "react-text-transition";
 
 export default function Welcome() {
   const TEXTS = [
-    "INTERACTIVE EXPLORATION OF PRIMARY HISTORICAL SOURCES",
     "VISUALISATION SOLUTIONS FOR DIGITAL HISTORY",
+    "INTERACTIVE EXPLORATION OF PRIMARY HISTORICAL SOURCES",
     "SEARCH ENGINE FOR SECONDARY LITERATURE, IMAGES, VIDEOS, NEWS",
   ];
   const [index, setIndex] = useState(0);
@@ -52,18 +52,29 @@ export default function Welcome() {
               <h1 className="display-3 text-center text-white">
                 ENGINEERING HISTORICAL MEMORY
               </h1>
-              <span className="text-white text-center">
-                <TextTransition
-                  text={TEXTS[index % TEXTS.length]}
-                  springConfig={presets.wobbly}
-                />
-              </span>
+              <TextTransition
+                text={TEXTS[index % TEXTS.length]}
+                springConfig={presets.wobbly}
+                className="lead text-white"
+              />
               {/* <p className="lead text-white">
                 <TextTransition
                   text={TEXTS[index % TEXTS.length]}
                   springConfig={presets.wobbly}
                 />
               </p> */}
+            </div>
+            <div className="col-12 mt-auto text-center">
+              <a
+                className="btn btn-white btn-rounded-circle shadow"
+                data-scroll='{"offset": 0}'
+                href="#sectionTwo"
+                style={{
+                  color: "#22a6a7",
+                }}
+              >
+                <i className="fe fe-arrow-down"></i>
+              </a>
             </div>
           </div>
         </div>
