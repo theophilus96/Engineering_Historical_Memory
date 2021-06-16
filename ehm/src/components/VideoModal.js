@@ -44,7 +44,7 @@ export default function VideoModal() {
             width: "100vw",
             height: "100%",
             margin: 0,
-            // padding: "0px",
+            padding: "1px",
             // marginTop: "63px",
             background: "#ffffff00",
           },

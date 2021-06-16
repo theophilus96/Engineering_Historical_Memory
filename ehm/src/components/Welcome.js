@@ -71,6 +71,7 @@ export default function Welcome() {
                 href="#sectionTwo"
                 style={{
                   color: "#22a6a7",
+                  backgroundColor: "#ffffff17",
                 }}
               >
                 <i className="fe fe-arrow-down"></i>
