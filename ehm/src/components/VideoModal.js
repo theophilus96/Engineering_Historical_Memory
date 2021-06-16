@@ -38,12 +38,15 @@ export default function VideoModal() {
         container={myRef.current}
         styles={{
           modal: {
-            maxWidth: "unset",
+            maxWidth: "none",
             // maxWidth: "1024px",
             // width: "100%",
+            width: "100vw",
+            height: "100%",
+            margin: 0,
             padding: "0px",
             marginTop: "63px",
-            background:"#ffffff00"
+            background: "#ffffff00",
           },
           overlay: {
             background: "rgba(0, 0, 0, 0.5)",
