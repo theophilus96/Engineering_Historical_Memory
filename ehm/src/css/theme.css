@@ -17554,7 +17554,8 @@ code {
 .navbar {
   transition: all 0.2s ease-in-out;
   transition-property: background-color, color;
-  z-index: 1030;
+  z-index: 999;
+  /* z-index: 1030; */
 }
 @media (max-width: 991.98px) {
   .navbar-dark .navbar-nav .nav-item .nav-link {
