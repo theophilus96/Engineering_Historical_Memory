@@ -4,14 +4,14 @@ import { Modal } from "react-responsive-modal";
 import "../css/reactPlayer.css";
 
 export default function VideoModal() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const myRef = React.useRef(null);
 
-  // useEffect(() => {
-  //   setOpen(true);
-  //   setTimeout(() => setOpen(false), 7000);
-  // }, []);
+  useEffect(() => {
+    setOpen(true);
+    setTimeout(() => setOpen(false), 7000);
+  }, []);
 
   const closeIcon = (
     // <svg fill="currentColor" viewBox="0 0 20 20" width={28} height={28}>
