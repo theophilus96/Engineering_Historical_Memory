@@ -15,6 +15,9 @@ export default function ListArticles(doc) {
 
   const [{ user }] = useStateValue();
 
+  docs.sort((a, b) => b.active - a.active);
+  //sorting to list the active one's on top of the non-active future works
+
   // const [articleList, setarticleList] = useState("");
 
   // var docRef = projectFirestore.collection("category").doc(id);
@@ -46,8 +49,8 @@ export default function ListArticles(doc) {
               docs.map((doc) => (
                 <div
                   className={
-                    "card card-row shadow-light-lg mb-6 lift lift-lg" +
-                    (doc.auth && !user ? " special-card" : "")
+                    "card card-row shadow-light-lg mb-6 lift lift-lg " +
+                    (doc.active ? "" : "special-card")
                   }
                   key={doc.id}
                 >
@@ -60,9 +63,9 @@ export default function ListArticles(doc) {
 
                     <Link
                       to={
-                        doc.auth && !user
-                          ? "#"
-                          : `/category/${CatId}/article/${doc.id}`
+                        doc.active
+                          ? `/category/${CatId}/article/${doc.id}`
+                          : "#"
                       }
                       className="col-12 col-md-6 order-md-2 bg-cover card-img-end"
                       style={{
@@ -78,9 +81,7 @@ export default function ListArticles(doc) {
                       <div
                         className={
                           "shape shape-start shape-fluid-y " +
-                          (doc.auth && !user
-                            ? "text-special-opacity"
-                            : "text-white") +
+                          (doc.active ? "text-white" : "text-special-opacity") +
                           " d-none d-md-block"
                         }
                       >
@@ -100,9 +101,9 @@ export default function ListArticles(doc) {
                       <Link
                         className="card-body"
                         to={
-                          doc.auth && !user
-                            ? "#"
-                            : `/category/${CatId}/article/${doc.id}`
+                          doc.active
+                            ? `/category/${CatId}/article/${doc.id}`
+                            : "#"
                         }
                       >
                         <h3>{doc.name}</h3>
