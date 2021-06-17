@@ -82,7 +82,7 @@ export default function Contact() {
             </div>
           </div>
           <div class="row">
-            <div class="col-12 col-md-4 text-center border-end border-gray-300">
+            <div class="col-12 col-md-6 text-center border-end border-gray-300">
               <h6 class="text-uppercase text-gray-700 mb-1">Message us</h6>
 
               <div class="mb-5 mb-md-0">
@@ -91,7 +91,7 @@ export default function Contact() {
                 </a>
               </div>
             </div>
-            <div class="col-12 col-md-4 text-center border-end border-gray-300">
+            {/* <div class="col-12 col-md-4 text-center border-end border-gray-300">
               <h6 class="text-uppercase text-gray-700 mb-1">Call anytime</h6>
 
               <div class="mb-5 mb-md-0">
@@ -99,12 +99,12 @@ export default function Contact() {
                   (+65 ) 6513 8250
                 </a>
               </div>
-            </div>
-            <div class="col-12 col-md-4 text-center">
+            </div> */}
+            <div class="col-12 col-md-6 text-center">
               <h6 class="text-uppercase text-gray-700 mb-1">Email us</h6>
 
               <a href="#!" class="h4 text-EasternBlue">
-                andrea.nanetti@ntu.edu.sg
+                info@engineeringhistoricalmemory.com
               </a>
             </div>
           </div>
