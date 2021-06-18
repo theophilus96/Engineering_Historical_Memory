@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { projectFirestore } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 import useSubcollect from "../hooks/useSubcollect";
+import UseSubcollect2 from "../hooks/UseSubcollect2";
+import useSubcollect3 from "../hooks/useSubcollect3";
 
 export default function BottomList() {
   const [items, setItems] = useState([]);
+  const [items4, setItems4] = useState([]);
+  const [items5, setItems5] = useState([]);
 
-  // const { docs } = useFirestore("category");
-  const { docs } = useSubcollect("category");
+  const { docs } = useFirestore("category");
+  // const { docs } = useSubcollect("category");
+  const { items2, items3 } = UseSubcollect2();
 
-  // console.log("use sub collect ", docs);
+  // console.log("use sub collect 2", items2);
 
   const MapsofAfroEurasia = useFirestore(
     "category/qujoO8JON704I5cm5WYn/Article"
   ).docs;
   const Paint = useFirestore("category/smgggzT906j7oJaPGjTP/Article").docs;
-
-  // console.log(MapsofAfroEurasia);
-  // console.log(Paint);
 
   const documentID = [];
   //Also a good practice to separate reference instance
@@ -53,41 +54,100 @@ export default function BottomList() {
   // }, []);
   //Get them
 
+  // useEffect(() => {
+  //   (async () => {
+  //     await projectFirestore
+  //       .collection("category")
+  //       .get()
+  //       .then((querySnapshot) => {
+  //         let allItems = [];
+  //         let allItems2 = [];
+
+  //         querySnapshot.forEach((CatDoc) => {
+  //           // console.log(CatDoc.id, " => ", CatDoc.data());
+  //           console.log(
+  //             CatDoc.id,
+  //             " => ",
+  //             projectFirestore
+  //               .collection("category")
+  //               .doc(CatDoc.id)
+  //               .collection("Article")
+  //               .get()
+  //               .then((querySnapshot) => {
+  //                 const data = querySnapshot.docs.map((ArtDoc) => {
+  //                   allItems2.push({ ...ArtDoc.data(), id: ArtDoc.id });
+  //                   return ArtDoc.data();
+  //                 });
+  //                 // console.log("data =>", data);
+  //                 allItems.push(data);
+  //               })
+  //           );
+  //         });
+  //         setItems(allItems);
+  //         setItems2(allItems2);
+  //       });
+  //   })();
+  // }, []);
+
   useEffect(() => {
-    (async () => {
-      await projectFirestore
+    const categoryData = (id) => {
+      projectFirestore
         .collection("category")
+        .doc(id)
+        .collection("Article")
         .get()
-        .then((querySnapshot) => {
-          let allItems = [];
-          querySnapshot.forEach((CatDoc) => {
-            console.log(CatDoc.id, " => ", CatDoc.data());
-            console.log(
-              CatDoc.id,
-              " => ",
-              projectFirestore
-                .collection("category")
-                .doc(CatDoc.id)
-                .collection("Article")
-                .get()
-                .then((querySnapshot) => {
-                  const data = querySnapshot.docs.map((ArtDoc) => {
-                    return ArtDoc.data();
-                  });
-                  console.log("data =>", data);
-                  allItems.push(data);
-                })
-            );
+        .then((response) => {
+          const allitems5 = [];
+          response.forEach((document) => {
+            const fetchedArticle = {
+              id: document.id,
+              ...document.data(),
+            };
+            allitems5.push(fetchedArticle);
           });
-          setItems(allItems);
+          setItems5(allitems5);
+        })
+        .catch((error) => {
+          console.log("error", error);
         });
-    })();
+    };
+
+    projectFirestore
+      .collection("category")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((CatDoc) => {
+          categoryData(CatDoc.id);
+        });
+      });
+
   }, []);
 
-  console.log("type", typeof items);
-  console.log("items array", items);
-  console.log("documentID[0] ", items[0]);
-  console.log("type of documentID[0]", typeof items[0]);
+
+  console.log("type items5", typeof items5);
+  console.log("items5 array", items5);
+
+  // console.log("type MapsofAfroEurasia", typeof MapsofAfroEurasia);
+  // console.log("MapsofAfroEurasia array", MapsofAfroEurasia);
+
+  // console.log("type docs", typeof docs);
+  // console.log("docs array", docs);
+
+  // console.log("type items", typeof items);
+  // console.log("items array", items);
+
+  // console.log("type items2", typeof items2);
+  // console.log("items2 array", items2);
+
+  // console.log("type items3", typeof items3);
+  // console.log("items3 array", items3);
+
+  // console.log("type items4", typeof items4);
+  // console.log("items4 array", items4);
+
+
+  // console.log("documentID[0] ", items[0]);
+  // console.log("type of documentID[0]", typeof items[0]);
 
   //   for (const x in documentID) {
   //     console.log("x", x);
@@ -113,18 +173,31 @@ export default function BottomList() {
   //   console.log("docs name in items", doc.name);
   // });
 
-  items.map((doc) => {
-    console.log("items ID in items", doc.id);
-    console.log("items name in items", doc.name);
-  });
+  // items2 &&
+  //   items2.map((doc) => {
+  //     console.log("items ID in items2", doc.id);
+  //     console.log("items name in items2", doc.name);
+  //   });
+
+  // items4 &&
+  //   items4.map((doc) => {
+  //     console.log("items ID in items4", doc.id);
+  //     console.log("items name in items4", doc.name);
+  //   });
+
+  // MapsofAfroEurasia &&
+  //   MapsofAfroEurasia.map((doc) => {
+  //     console.log("items ID in MapsofAfroEurasia", doc.id);
+  //     console.log("items name in MapsofAfroEurasia", doc.name);
+  //   });
 
   return (
     <section className="pt-7 pt-md-10 bg-light">
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {docs &&
-              docs.map((doc) => (
+            {items5 &&
+              items5.map((doc) => (
                 <div
                   className="card card-row shadow-light-lg mb-6 lift lift-lg"
                   key={doc.id}
