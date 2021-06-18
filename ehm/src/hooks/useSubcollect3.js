@@ -3,9 +3,11 @@ import { projectFirestore } from "../firebase/config";
 
 export default function UseSubcollect3() {
   const [items, setItems] = useState([]);
+  const [items2, setItems2] = useState([]);
 
   useEffect(() => {
     const categoryData = (id) => {
+      const allitems2 = [];
       projectFirestore
         .collection("category")
         .doc(id)
@@ -13,6 +15,7 @@ export default function UseSubcollect3() {
         .get()
         .then((response) => {
           const allitems = [];
+
           response.forEach((document) => {
             const fetchedArticle = {
               id: document.id,
