@@ -3,51 +3,23 @@ import UseSubcollect3 from "../hooks/UseSubcollect3";
 import { Link } from "react-router-dom";
 
 export default function BottomList() {
-  const { items } = UseSubcollect3();
-
-  // useEffect(() => {
-  //   const categoryData = (id) => {
-  //     projectFirestore
-  //       .collection("category")
-  //       .doc(id)
-  //       .collection("Article")
-  //       .get()
-  //       .then((response) => {
-  //         const allitems5 = [];
-  //         response.forEach((document) => {
-  //           const fetchedArticle = {
-  //             id: document.id,
-  //             ...document.data(),
-  //           };
-  //           allitems5.push(fetchedArticle);
-  //         });
-  //         setItems5(allitems5);
-  //       })
-  //       .catch((error) => {
-  //         console.log("error", error);
-  //       });
-  //   };
-
-  //   projectFirestore
-  //     .collection("category")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       querySnapshot.forEach((CatDoc) => {
-  //         categoryData(CatDoc.id);
-  //       });
-  //     });
-  // }, []);
-
+  const { items, items2 } = UseSubcollect3();
+//items contains only the apps of the specific category
+//item2 contains all the apps/articles
+ 
   console.log("type items", typeof items);
   console.log("items array", items);
+
+  console.log("type items2", typeof items2);
+  console.log("items2 array", items2);
 
   return (
     <section className="pt-7 pt-md-10 bg-light">
       <div className="container">
         <div className="row">
           <div className="col-12">
-            {items &&
-              items.map((doc) =>
+            {items2 &&
+              items2.map((doc) =>
                 doc.active ? (
                   <div
                     className={
@@ -57,8 +29,7 @@ export default function BottomList() {
                     key={doc.id}
                   >
                     <div className="row gx-0">
-                      <div className="col-12">
-                      </div>
+                      <div className="col-12"></div>
 
                       <Link
                         to={doc.active ? `${doc.CategoryID}` : "#"}

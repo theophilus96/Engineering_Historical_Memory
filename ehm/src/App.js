@@ -8,9 +8,6 @@ import React, { useEffect } from "react";
 import { useStateValue } from "./state/StateProvider";
 import { auth } from "./firebase/config";
 import Navbar from "./components/Navbar";
-import BottomList from "./components/BottomList";
-// import OldNavBar from "./components/OldNavBar";
-import NavBar1 from "./components/NavBar1";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 //pages

@@ -19,7 +19,7 @@ export default function FSmodal() {
   return (
     // Full screen modal
     <div
-      class="modal-fullscreen-sm-down"
+    className="modal-fullscreen-sm-down"
       open={open}
       onClose={() => setOpen(false)}
     >
@@ -31,7 +31,7 @@ export default function FSmodal() {
         height="100%"
       />
 
-      <div class="modal-footer">
+      <div className="modal-footer">
         <button
           className="btn btn-sm btn-black"
           type="button"
