@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import useFirestore from "../hooks/useFirestore";
 
 function SampleNextArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
-    <div className={className} style={{}} onClick={onClick}>
+    <div className={className} onClick={onClick}>
       <button className="btn btn-white btn-rounded-circle mb-1">
         <i className="fe fe-arrow-right"></i>
       </button>
@@ -18,9 +18,9 @@ function SampleNextArrow(props) {
 }
 
 function SamplePrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, onClick } = props;
   return (
-    <div className={className} style={{}} onClick={onClick}>
+    <div className={className}  onClick={onClick}>
       <button className="btn btn-white btn-rounded-circle mb-1">
         <i className="fe fe-arrow-left"></i>
       </button>

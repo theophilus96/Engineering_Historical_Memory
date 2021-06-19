@@ -5,6 +5,7 @@ export default function UseSubcollect3() {
   const [items, setItems] = useState([]);
   const [items2, setItems2] = useState([]);
 
+
   useEffect(() => {
     // const categoryData = (id) => {
     //   projectFirestore
@@ -43,7 +44,7 @@ export default function UseSubcollect3() {
     //   });
 
     // return () => categoryData();
-    const unsub = projectFirestore
+    projectFirestore
       .collection("category")
       .get()
       .then((querySnapshot) => {
@@ -75,7 +76,6 @@ export default function UseSubcollect3() {
         setItems2(allitems2);
       });
 
-    return () => unsub();
     // this is a cleanup function that react will run when
     // a component using the hook unmounts
   }, []);

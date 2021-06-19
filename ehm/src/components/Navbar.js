@@ -4,15 +4,23 @@ import "../css/EHMtheme.css";
 //state
 import { auth, projectFirestore } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
+
+//hooks
+import UseSubcollect2 from "../hooks/UseSubcollect2";
+import useFirestore from "../hooks/useFirestore";
+
 export default function Navbar() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
 
-  var person = auth.currentUser;
+  const { docs } = useFirestore("category");
+  const { article, categoryData } = UseSubcollect2();
 
-  // if (person != null) {
-  //   setUserName(person.displayName);
-  // }
+  console.log("Docs from navbar", docs);
+  console.log("categoryData from navbar", categoryData);
+  console.log("article from navbar", article);
+
+  var person = auth.currentUser;
 
   useEffect(() => {
     if (person != null) {
@@ -47,6 +55,33 @@ export default function Navbar() {
     e.stopPropagation();
     e.preventDefault();
   }
+
+  // const articleData = (doc) => (e) => {
+  //   console.log("clicked")
+  //   e.stopPropagation();
+  //   e.preventDefault();
+  //   projectFirestore
+  //     .collection("category")
+  //     .doc(doc.id)
+  //     .collection("Article")
+  //     .get()
+  //     .then((response) => {
+  //       const allitems = [];
+  //       response.forEach((document) => {
+  //         const fetchedArticle = {
+  //           id: document.id,
+  //           ...document.data(),
+  //           CategoryID: doc.id,
+  //         };
+  //         allitems.push(fetchedArticle);
+  //         // allitems2.push(fetchedArticle);
+  //       });
+  //       setArticle(allitems);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error", error);
+  //     });
+  // };
 
   return (
     <div>
@@ -104,6 +139,56 @@ export default function Navbar() {
                   Applications
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarAccount">
+                  {categoryData &&
+                    categoryData.map((doc) => (
+                      <li className="dropdown-item dropend" key={doc.id}>
+                        <a
+                          className="dropdown-link dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          href="#"
+                          onClick={onMouseEnter}
+                        >
+                          {doc.name}
+                        </a>
+                        <div className="dropdown-menu">
+                          {doc.array.map((articleDoc) => (
+                            <a
+                              className="dropdown-item"
+                              href="#"
+                              alt="..."
+                              key={articleDoc.id}
+                            >
+                              {articleDoc.name}
+                            </a>
+                          ))}
+                        </div>
+                      </li>
+                    ))}
+
+                  {/* {docs &&
+                    docs.map((doc) => (
+                      <li className="dropdown-item dropend" key={doc.id}>
+                        <a
+                          className="dropdown-link dropdown-toggle"
+                          data-bs-toggle="dropdown"
+                          href="#"
+                          onClick={articleData(doc)}
+                        >
+                          {doc.name}
+                        </a>
+
+                        {article
+                          ? article.map((articleDoc) => (
+                              <div className="dropdown-menu">
+                                <a className="dropdown-item" href="#" alt="...">
+                                  {articleDoc.name}
+                                </a>
+                              </div>
+                            ))
+                          : ""}
+                      </li>
+                    ))} */}
+
                   <li className="dropdown-item dropend">
                     <a
                       className="dropdown-link dropdown-toggle"

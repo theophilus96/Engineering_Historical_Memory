@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 export default function BottomList() {
   const { items, items2 } = UseSubcollect3();
-//items contains only the apps of the specific category
-//item2 contains all the apps/articles
- 
-  console.log("type items", typeof items);
-  console.log("items array", items);
+  //items contains only the apps of the specific category
+  //item2 contains all the apps/articles
 
-  console.log("type items2", typeof items2);
-  console.log("items2 array", items2);
+  // console.log("type items", typeof items);
+  // console.log("items array", items);
+
+  // console.log("type items2", typeof items2);
+  // console.log("items2 array", items2);
 
   return (
     <section className="pt-7 pt-md-10 bg-light">
@@ -32,7 +32,11 @@ export default function BottomList() {
                       <div className="col-12"></div>
 
                       <Link
-                        to={doc.active ? `${doc.CategoryID}` : "#"}
+                        to={
+                          doc.active
+                            ? `/category/${doc.CategoryID}/article/${doc.id}`
+                            : "#"
+                        }
                         className="col-12 col-md-6 order-md-2 bg-cover card-img-end"
                         style={{
                           backgroundImage: `url(${doc.image})`,
@@ -68,7 +72,11 @@ export default function BottomList() {
                       <div className="col-12 col-md-6 order-md-1">
                         <Link
                           className="card-body"
-                          to={doc.active ? `${doc.CategoryID}` : "#"}
+                          to={
+                            doc.active
+                              ? `/category/${doc.CategoryID}/article/${doc.id}`
+                              : "#"
+                          }
                         >
                           <h3>{doc.name}</h3>
 
