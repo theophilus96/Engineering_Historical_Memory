@@ -128,7 +128,7 @@ export default function Navbar() {
             {/* Navigation */}
             <ul className="navbar-nav ms-auto">
               <li className="nav-item dropdown">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
                   id="navbarAccount"
                   data-bs-toggle="dropdown"
@@ -137,58 +137,48 @@ export default function Navbar() {
                   aria-expanded="false"
                 >
                   Applications
-                </a>
+                </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarAccount">
                   {categoryData &&
                     categoryData.map((doc) => (
                       <li className="dropdown-item dropend" key={doc.id}>
-                        <a
+                        <Link
                           className="dropdown-link dropdown-toggle"
                           data-bs-toggle="dropdown"
                           href="#"
                           onClick={onMouseEnter}
                         >
                           {doc.name}
-                        </a>
-                        <div className="dropdown-menu">
-                          {doc.array.map((articleDoc) => (
-                            <a
-                              className="dropdown-item"
-                              href="#"
-                              alt="..."
-                              key={articleDoc.id}
-                            >
-                              {articleDoc.name}
-                            </a>
-                          ))}
-                        </div>
+                        </Link>
+
+                        {Array.isArray(doc.array) && doc.array.length === 0 ? (
+                          ""
+                        ) : (
+                          <div className="dropdown-menu">
+                            {doc.array &&
+                              doc.array.map((articleDoc) => {
+                                return (
+                                  <Link
+                                    key={articleDoc.id}
+                                    className={
+                                      "dropdown-item" +
+                                      (articleDoc.active ? "" : " disabled")
+                                    }
+                                    to={
+                                      articleDoc.active
+                                        ? `/category/${doc.id}/article/${articleDoc.id}`
+                                        : "#"
+                                    }
+                                    alt="..."
+                                  >
+                                    {articleDoc.name}
+                                  </Link>
+                                );
+                              })}
+                          </div>
+                        )}
                       </li>
                     ))}
-
-                  {/* {docs &&
-                    docs.map((doc) => (
-                      <li className="dropdown-item dropend" key={doc.id}>
-                        <a
-                          className="dropdown-link dropdown-toggle"
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          onClick={articleData(doc)}
-                        >
-                          {doc.name}
-                        </a>
-
-                        {article
-                          ? article.map((articleDoc) => (
-                              <div className="dropdown-menu">
-                                <a className="dropdown-item" href="#" alt="...">
-                                  {articleDoc.name}
-                                </a>
-                              </div>
-                            ))
-                          : ""}
-                      </li>
-                    ))} */}
-
                   <li className="dropdown-item dropend">
                     <a
                       className="dropdown-link dropdown-toggle"
