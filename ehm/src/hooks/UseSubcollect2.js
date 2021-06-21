@@ -5,39 +5,7 @@ export default function UseSubcollect2() {
   const [categoryData, setCategoryData] = useState([]);
   const [article, setArticle] = useState([]);
 
-  useEffect(() => {
-    // (async () => {
-    //   await projectFirestore
-    //     .collection("category")
-    //     .get()
-    //     .then((querySnapshot) => {
-    //       let allItems2 = [];
-    //       let allItems3 = [];
-
-    //       querySnapshot.forEach((CatDoc) => {
-    //         // console.log(CatDoc.id, " => ", CatDoc.data());
-    //         projectFirestore
-    //           .collection("category")
-    //           .doc(CatDoc.id)
-    //           .collection("Article")
-    //           .get()
-    //           .then((querySnapshot) => {
-    //             const data = querySnapshot.docs.map((ArtDoc) => {
-    //               allItems2.push({ ...ArtDoc.data(), id: ArtDoc.id });
-    //               return ArtDoc.data();
-    //             });
-    //             // console.log("data =>", data);
-    //             allItems3.push(data);
-    //           });
-    //       });
-    //       setItems2(allItems2);
-    //       setItems3(allItems3);
-    //     })
-    //     .catch((err) => {
-    //       console.log("Error getting documents", err);
-    //     });
-    // })();
-
+  const unsub = () => {
     projectFirestore
       .collection("category")
       .get()
@@ -69,18 +37,22 @@ export default function UseSubcollect2() {
                 array: allitems,
               };
               fetchCategory.push(category);
-              
             })
             .catch((error) => {
               console.log("error", error);
             });
         });
-
-        setCategoryData(fetchCategory);
+        setCategoryData(fetchCategory)
       })
       .catch((error) => {
         console.log(error);
       });
+
+    // return Promise.all(fetchCategory)
+  };
+
+  useEffect(() => {
+    unsub();
   }, []);
 
   return { categoryData, article };

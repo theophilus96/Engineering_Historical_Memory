@@ -12,38 +12,81 @@ import useFirestore from "../hooks/useFirestore";
 export default function Navbar() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
+  const [navList, setNavList] = useState(null);
 
   const { docs } = useFirestore("category");
-  const { article, categoryData } = UseSubcollect2();
-
-  console.log("Docs from navbar", docs);
-  console.log("categoryData from navbar", categoryData);
-  console.log("article from navbar", article);
 
   var person = auth.currentUser;
+
+  console.log("Docs from navbar", docs);
+
+  const { article, categoryData } = UseSubcollect2();
 
   useEffect(() => {
     if (person != null) {
       setUserName(person.displayName);
     }
-    if (user) {
-      projectFirestore
-        .collection("users")
-        .doc(user.uid)
-        .onSnapshot(
-          {
-            // Listen for document metadata changes
-            includeMetadataChanges: true,
-          },
-          (doc) =>
-            console.log(
-              "user documents"
-              // doc.data().name,
-              // setUserName(doc.data().name)
-            )
-        );
-    }
-  }, [user]);
+
+    let response = () =>
+      categoryData &&
+      categoryData.map((doc) => (
+        <li className="dropdown-item dropend" key={doc.id}>
+          <Link
+            className="dropdown-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            to="#"
+            onClick={onMouseEnter}
+          >
+            {doc.name}
+          </Link>
+
+          {Array.isArray(doc.array) && doc.array.length === 0 ? (
+            ""
+          ) : (
+            <div className="dropdown-menu">
+              {doc.array &&
+                doc.array.map((articleDoc) => {
+                  return (
+                    <Link
+                      key={articleDoc.id}
+                      className={
+                        "dropdown-item" + (articleDoc.active ? "" : " disabled")
+                      }
+                      to={
+                        articleDoc.active
+                          ? `/category/${doc.id}/article/${articleDoc.id}`
+                          : "#"
+                      }
+                      alt="..."
+                    >
+                      {articleDoc.name}
+                    </Link>
+                  );
+                })}
+            </div>
+          )}
+        </li>
+      ));
+    setNavList(response);
+
+    // if (user) {
+    //   projectFirestore
+    //     .collection("users")
+    //     .doc(user.uid)
+    //     .onSnapshot(
+    //       {
+    //         // Listen for document metadata changes
+    //         includeMetadataChanges: true,
+    //       },
+    //       (doc) =>
+    //         console.log(
+    //           "user documents"
+    //           // doc.data().name,
+    //           // setUserName(doc.data().name)
+    //         )
+    //     );
+    // }
+  }, [categoryData.length]);
 
   const handleAuthentication = () => {
     if (user) {
@@ -55,33 +98,6 @@ export default function Navbar() {
     e.stopPropagation();
     e.preventDefault();
   }
-
-  // const articleData = (doc) => (e) => {
-  //   console.log("clicked")
-  //   e.stopPropagation();
-  //   e.preventDefault();
-  //   projectFirestore
-  //     .collection("category")
-  //     .doc(doc.id)
-  //     .collection("Article")
-  //     .get()
-  //     .then((response) => {
-  //       const allitems = [];
-  //       response.forEach((document) => {
-  //         const fetchedArticle = {
-  //           id: document.id,
-  //           ...document.data(),
-  //           CategoryID: doc.id,
-  //         };
-  //         allitems.push(fetchedArticle);
-  //         // allitems2.push(fetchedArticle);
-  //       });
-  //       setArticle(allitems);
-  //     })
-  //     .catch((error) => {
-  //       console.log("error", error);
-  //     });
-  // };
 
   return (
     <div>
@@ -139,212 +155,7 @@ export default function Navbar() {
                   Applications
                 </Link>
                 <ul className="dropdown-menu" aria-labelledby="navbarAccount">
-                  {categoryData &&
-                    categoryData.map((doc) => (
-                      <li className="dropdown-item dropend" key={doc.id}>
-                        <Link
-                          className="dropdown-link dropdown-toggle"
-                          data-bs-toggle="dropdown"
-                          href="#"
-                          onClick={onMouseEnter}
-                        >
-                          {doc.name}
-                        </Link>
-
-                        {Array.isArray(doc.array) && doc.array.length === 0 ? (
-                          ""
-                        ) : (
-                          <div className="dropdown-menu">
-                            {doc.array &&
-                              doc.array.map((articleDoc) => {
-                                return (
-                                  <Link
-                                    key={articleDoc.id}
-                                    className={
-                                      "dropdown-item" +
-                                      (articleDoc.active ? "" : " disabled")
-                                    }
-                                    to={
-                                      articleDoc.active
-                                        ? `/category/${doc.id}/article/${articleDoc.id}`
-                                        : "#"
-                                    }
-                                    alt="..."
-                                  >
-                                    {articleDoc.name}
-                                  </Link>
-                                );
-                              })}
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Maps of Afro-Eurasia
-                    </a>
-                    <div className="dropdown-menu">
-                      <a
-                        className="dropdown-item"
-                        href="./account-general.html"
-                      >
-                        Fra Mauro’s Map of the World (dated 26 August 1460)
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./account-security.html"
-                      >
-                        Genoese Map of the World 1457 CE
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Travel Accounts
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./signin-cover.html">
-                        Marco Polo. Le Devisement dou monde
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./signin-illustration.html"
-                      >
-                        Ibn Battuta. Riḥla / The Journey (1325 - 1354 CE)
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Chronicles
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./signup-cover.html">
-                        The Morosini Codex (1095-1433)
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./signup-illustration.html"
-                      >
-                        Southeast Asia in the Ming Shilu (明實錄, 1368-1644)
-                      </a>
-                      <a className="dropdown-item" href="./signup.html">
-                        The Royal Chronicles of Ayutthaya (Book One, 1169-1548)
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        data-bs-toggle="modal"
-                        href="#modalSignupHorizontal"
-                      >
-                        The List of Old-Russian Towns (last quarter of the 14th
-                        - early 15th c.)
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Illuminated Codices
-                    </a>
-                    <div className="dropdown-menu"></div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Sites
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./error-cover.html">
-                        The Methoni Castle (1207-1500 & 1685-1715)
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./error-illustration.html"
-                      >
-                        Hill Forts of Rajasthan (ca 8th-16th cent. CE)
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Archival Documents
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./error-cover.html">
-                        Pope Gregory X’s Privilege for the Holy Monastery of St
-                        Catherine of Sinai (24 September 1274)
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      Paintings
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./error-cover.html">
-                        The “Wayfarer Triptych” by Jheronimus Bosch (ca
-                        1485-1500)
-                      </a>
-                    </div>
-                  </li>
-                  <li className="dropdown-item dropend">
-                    <a
-                      className="dropdown-link dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      href="#"
-                      onClick={onMouseEnter}
-                    >
-                      History+
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="./error-cover.html">
-                        Maps of Afro-Eurasia (1100-1460 CE)
-                      </a>
-                      <a
-                        className="dropdown-item"
-                        href="./error-illustration.html"
-                      >
-                        Information Visualisation for Digital History
-                      </a>
-                      <a className="dropdown-item" href="./error.html">
-                        Chronicles and Travel Accounts of Afro-Eurasia
-                        (1205-1533 CE)
-                      </a>
-                    </div>
-                  </li>
+                  {navList}
                 </ul>
               </li>
               <li className="nav-item">
