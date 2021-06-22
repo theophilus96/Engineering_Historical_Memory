@@ -57,7 +57,29 @@
 }
 
 .text-EasternBlue {
-  color: #22a6a7 !important;
+  color: #e9fafa !important;
 }
 
 
+.bg-Genoa {
+  background-color: #147F80 !important;
+}
+
+.bg-Genoa-dark {
+  background-color: #075052 !important;
+}
+
+.card-list .list-link:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2rem;
+  border-right: 2px solid #147F80;
+  display: none;
+}
+
+.form-check-input:checked {
+  background-color: #22a6a7;
+  border-color: #22a6a7;
+}

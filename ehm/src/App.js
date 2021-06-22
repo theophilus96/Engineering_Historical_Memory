@@ -21,6 +21,9 @@ import ContactPage from "./pages/ContactPage";
 import Framauro from "./articles/Framauro";
 //research Team
 import researchTeam from "./researchTeam/researchTeam";
+//admin
+import CategoryAdmin from "./admin/CategoryAdmin";
+import ArticleAdmin from "./admin/ArticleAdmin";
 
 function App() {
   useEffect(() => {
@@ -69,6 +72,8 @@ function App() {
           <Route exact path="/term" component={TermPage} />
           <Route exact path="/credits" component={CreditsPage} />
           <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/admin/category" component={CategoryAdmin} />
+          <Route exact path="/admin/article" component={ArticleAdmin} />
         </Switch>
       </Router>
     </div>
