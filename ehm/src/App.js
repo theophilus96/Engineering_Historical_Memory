@@ -24,6 +24,7 @@ import researchTeam from "./researchTeam/researchTeam";
 //admin
 import CategoryAdmin from "./admin/CategoryAdmin";
 import ArticleAdmin from "./admin/ArticleAdmin";
+import UserAdmin from "./admin/UserAdmin";
 
 function App() {
   useEffect(() => {
@@ -74,6 +75,7 @@ function App() {
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/admin/category" component={CategoryAdmin} />
           <Route exact path="/admin/article" component={ArticleAdmin} />
+          <Route exact path="/admin/user" component={UserAdmin} />
         </Switch>
       </Router>
     </div>

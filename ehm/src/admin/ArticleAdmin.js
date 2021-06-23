@@ -92,12 +92,9 @@ export default function ArticleAdmin() {
 
                     <ul class="card-list list text-gray-700 mb-0">
                       <li class="list-item">
-                        <a
-                          class="list-link text-reset"
-                          href="billing-plans-and-payment.html"
-                        >
+                        <Link class="list-link text-reset" to="/admin/user">
                           Users
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>

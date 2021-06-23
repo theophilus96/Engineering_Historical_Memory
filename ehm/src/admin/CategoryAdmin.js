@@ -2,10 +2,23 @@ import React, { useEffect, useState } from "react";
 import { auth } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 import { Link } from "react-router-dom";
+import useFirestore from "../hooks/useFirestore";
+import { projectStorage, projectFirestore } from "../firebase/config";
 
 export default function CategoryAdmin() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
+  const { docs } = useFirestore("category");
+
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryDescription, setCategoryDescription] = useState("");
+  //storage
+  const [file, setFile] = useState(null);
+  const [url, setURL] = useState("");
+
+  function handleChange(e) {
+    setFile(e.target.files[0]);
+  }
 
   var person = auth.currentUser;
 
@@ -14,6 +27,51 @@ export default function CategoryAdmin() {
       setUserName(person.displayName);
     }
   }, [person]);
+
+  const onSubmit = (e) => {
+    /* 
+    preventDefault is important because it
+    prevents the whole page from reloading
+    */
+    e.preventDefault();
+    //remove spaces in the category name
+    let str = categoryName.replace(/\s/g, "");
+
+    const storageRef = projectStorage.ref(`"images/"${str}/` + file.name);
+    const collectionRef = projectFirestore.collection("category");
+
+    storageRef.put(file).on(
+      "state_changed",
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        console.log("progress bar", percentage);
+      },
+      (err) => {
+        console.log(err);
+      },
+      async () => {
+        const url = await storageRef.getDownloadURL();
+        //   const createdAt = timestamp();
+        const newCategoryAdded = await collectionRef.add({
+          name: categoryName,
+          description: categoryDescription,
+          image: url,
+        });
+        console.log("the new category:", newCategoryAdded);
+        console.log("it's id:", newCategoryAdded.id);
+
+        // collectionRef.doc(newCategoryAdded.id).collection("project").add({
+        //   image: url,
+        // });
+
+        setCategoryName("");
+        setCategoryDescription("");
+        setFile(null);
+        setURL("");
+      }
+    );
+  };
+
   return (
     <div>
       <nav class="bg-Genoa-dark d-md-none">
@@ -91,12 +149,9 @@ export default function CategoryAdmin() {
 
                     <ul class="card-list list text-gray-700 mb-0">
                       <li class="list-item">
-                        <a
-                          class="list-link text-reset"
-                          href="billing-plans-and-payment.html"
-                        >
+                        <Link class="list-link text-reset" to="/admin/user">
                           Users
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -109,7 +164,7 @@ export default function CategoryAdmin() {
                   <h4 class="mb-0">Add Category</h4>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form onSubmit={onSubmit}>
                     <div class="row">
                       <div class="col-12">
                         <div class="form-group">
@@ -118,9 +173,18 @@ export default function CategoryAdmin() {
                           </label>
                           <input
                             class="form-control"
-                            id="name"
+                            id="Category Name"
                             type="text"
                             placeholder="Category name"
+                            value={categoryName}
+                            name="Category Name"
+                            // onChange takes the event and set it to whatever
+                            // is currently in the input. 'e' is equal to the event
+                            // happening. currentTarget.value is what is inputted
+
+                            onChange={(e) =>
+                              setCategoryName(e.currentTarget.value)
+                            }
                           />
                         </div>
                       </div>
@@ -131,9 +195,12 @@ export default function CategoryAdmin() {
                           <input
                             className="form-control"
                             placeholder="Category description"
-                            value=""
-                            name="longDesc"
+                            name="Category Description"
                             type="text"
+                            value={categoryDescription}
+                            onChange={(e) =>
+                              setCategoryDescription(e.currentTarget.value)
+                            }
                           ></input>
                         </div>
                       </div>
@@ -145,7 +212,11 @@ export default function CategoryAdmin() {
                               <div class="avatar avatar-xl">
                                 <img
                                   class="avatar-img rounded-circle"
-                                  src="assets/img/avatars/avatar-1.jpg"
+                                  src={
+                                    file
+                                      ? URL.createObjectURL(file)
+                                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalEj8tnk7AywBgsPErBHh2_8vFwc2yZty-mqmzy3t6pP_lN3WnokkH8ghoeFPZ13cs3g&usqp=CAU"
+                                  }
                                   alt="..."
                                 />
                               </div>
@@ -158,21 +229,90 @@ export default function CategoryAdmin() {
                               </small>
                             </div>
                             <div class="col-12 col-md-auto">
-                              <button class="btn btn-xs w-100 mt-5 mt-md-0 btn-EasternBlue ">
+                              {/* <button class="btn btn-xs w-100 mt-5 mt-md-0 btn-EasternBlue ">
                                 Upload
-                              </button>
+                              </button> */}
+                              <input
+                                type="file"
+                                class="form-control"
+                                onChange={handleChange}
+                              />
                             </div>
                           </div>
                         </div>
                         {/* </div> */}
                       </div>
                       <div class="col-12 col-md-auto">
-                        <button class="btn w-100 btn-EasternBlue" type="submit">
-                          Save changes
+                        <button
+                          class="btn w-100 btn-EasternBlue"
+                          type="submit"
+                          disabled={!file}
+                        >
+                          Submit
                         </button>
                       </div>
                     </div>
                   </form>
+                </div>
+              </div>
+
+              <div class="card card-bleed shadow-light-lg">
+                <div class="card-header">
+                  <div class="row align-items-center">
+                    <div class="col">
+                      <h4 class="mb-0">All Categories</h4>
+                    </div>
+                    <div class="col-auto">
+                      <button class="btn btn-xs btn-EasternBlue">Add</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="list-group list-group-flush">
+                    {docs &&
+                      docs.map((doc) => (
+                        <div class="list-group-item" key={doc.id}>
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <div class="avatar avatar-xl">
+                                <img
+                                  class="avatar-img rounded-circle"
+                                  src={
+                                    doc.image
+                                      ? doc.image
+                                      : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZhrgKO2lgbAtjt5RI_wnpPJQXMQ83S5osa0aVgxoSQQBiK69eX20ViUW2pgAMssDw4hQ&usqp=CAU"
+                                  }
+                                  alt="..."
+                                />
+                              </div>
+                            </div>
+                            <div class="col-6 ms-n5">
+                              <p class="mb-0">{doc.name}</p>
+                              <p class="d-block small text-gray-700">
+                                {doc.description}
+                              </p>
+
+                              {/* <a
+                                class="d-block small text-truncate text-gray-700"
+                                href="mailto:ab.hadley@company.com"
+                              >
+                                {doc.description}
+                              </a> */}
+                            </div>
+                            {/* <div class="col-auto ms-auto">
+                              <select
+                                class="form-select form-select-xs"
+                                data-choices
+                              >
+                                <option selected>Admin</option>
+                                <option>Staff</option>
+                                <option>Custom</option>
+                              </select>
+                            </div> */}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>
