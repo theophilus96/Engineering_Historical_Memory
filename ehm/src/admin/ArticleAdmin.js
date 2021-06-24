@@ -2,19 +2,155 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
+import UseSubcollect2 from "../hooks/UseSubcollect2";
 
 export default function ArticleAdmin() {
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
   const [checked, setChecked] = useState(true);
-
+  const [navList, setNavList] = useState(null);
+  const { article, categoryData } = UseSubcollect2();
   var person = auth.currentUser;
+
+  function onMouseEnter(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 
   useEffect(() => {
     if (person != null) {
       setUserName(person.displayName);
     }
-  }, [person]);
+
+    let response = () =>
+      categoryData &&
+      categoryData.map((doc) => (
+        <div className="accordion-item" key={doc.id}>
+          {/* <Link
+            className="dropdown-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            to="#"
+            onClick={onMouseEnter}
+          >
+            {doc.name}
+          </Link> */}
+          <h2 class="accordion-header" id={"flush-heading" + doc.id}>
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target={"#flush-collapse" + doc.id}
+              aria-expanded="false"
+              aria-controls="flush-collapseOne"
+            >
+              {doc.name}
+            </button>
+          </h2>
+          <div
+            id={"flush-collapse" + doc.id}
+            class="accordion-collapse collapse"
+            aria-labelledby={"flush-heading" + doc.id}
+            data-bs-parent="#accordionFlushExample"
+          >
+            <div class="accordion-body">
+              {Array.isArray(doc.array) && doc.array.length === 0 ? (
+                ""
+              ) : (
+                <div className="list-group">
+                  {doc.array &&
+                    doc.array.map((articleDoc) => {
+                      return (
+                        <div class="list-group-item" key={articleDoc.id}>
+                          <div class="row align-items-center">
+                            <div class="col-auto">
+                              <div class="avatar avatar-xl">
+                                <img
+                                  class="avatar-img rounded-circle"
+                                  src={
+                                    articleDoc.image
+                                      ? articleDoc.image
+                                      : "https://jejuhydrofarms.com/wp-content/uploads/2020/05/blank-profile-picture-973460_1280.png"
+                                  }
+                                  alt="..."
+                                />
+                              </div>
+                            </div>
+                            <div class="col-10 ms-n5">
+                              <p class="mb-0">{articleDoc.name}</p>
+
+                              <a
+                                class="d-block small text-gray-700"
+                                href="mailto:"
+                              >
+                                Description: {articleDoc.description}
+                              </a>
+
+                              <a
+                                class="d-block small text-gray-700"
+                                href="mailto:"
+                              >
+                                Citation: {articleDoc.citation}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* {Array.isArray(doc.array) && doc.array.length === 0 ? (
+            ""
+          ) : (
+            <div className="list-group">
+              {doc.array &&
+                doc.array.map((articleDoc) => {
+                  return (
+                    <div class="list-group-item" key={articleDoc.id}>
+                      <div class="row align-items-center">
+                        <div class="col-auto">
+                          <div class="avatar avatar-xl">
+                            <img
+                              class="avatar-img rounded-circle"
+                              src={
+                                articleDoc.image
+                                  ? articleDoc.image
+                                  : "https://jejuhydrofarms.com/wp-content/uploads/2020/05/blank-profile-picture-973460_1280.png"
+                              }
+                              alt="..."
+                            />
+                          </div>
+                        </div>
+                        <div class="col-6 ms-n5">
+                          <p class="mb-0">{articleDoc.name}</p>
+
+                          <a
+                            class="d-block small text-truncate text-gray-700"
+                            href="mailto:ab.hadley@company.com"
+                          >
+                            {articleDoc.description}
+                          </a>
+
+                          <a
+                            class="d-block small text-truncate text-gray-700"
+                            href="mailto:ab.hadley@company.com"
+                          >
+                            {doc.citation}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
+          )} */}
+        </div>
+      ));
+    setNavList(response);
+  }, [person, categoryData.length]);
+
   return (
     <div>
       <nav class="bg-Genoa-dark d-md-none">
@@ -224,6 +360,19 @@ export default function ArticleAdmin() {
                       </div>
                     </div>
                   </form>
+                </div>
+              </div>
+              <div class="card card-bleed shadow-light-lg mb-6">
+                <div class="card card-bleed shadow-light-lg mb-6">
+                  <div class="card-header">
+                    <h4 class="mb-0">Categories and Articles</h4>
+                  </div>
+                  <ul
+                    className="accordion accordion-flush"
+                    aria-labelledby="navbarAccount"
+                  >
+                    {navList}
+                  </ul>
                 </div>
               </div>
             </div>

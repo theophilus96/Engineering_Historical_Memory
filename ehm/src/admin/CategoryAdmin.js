@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { auth } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 import { Link } from "react-router-dom";
@@ -15,6 +15,8 @@ export default function CategoryAdmin() {
   //storage
   const [file, setFile] = useState(null);
   const [url, setURL] = useState("");
+  //If you pass a ref object to React, React will set its current property to the corresponding DOM node whenever that node changes.
+  const imageInputRef = useRef();
 
   function handleChange(e) {
     setFile(e.target.files[0]);
@@ -57,8 +59,8 @@ export default function CategoryAdmin() {
           description: categoryDescription,
           image: url,
         });
-        console.log("the new category:", newCategoryAdded);
-        console.log("it's id:", newCategoryAdded.id);
+        console.log("the new category: ", newCategoryAdded);
+        console.log("new category: id: ", newCategoryAdded.id);
 
         // collectionRef.doc(newCategoryAdded.id).collection("project").add({
         //   image: url,
@@ -68,8 +70,22 @@ export default function CategoryAdmin() {
         setCategoryDescription("");
         setFile(null);
         setURL("");
+        if (imageInputRef) imageInputRef.current.value = null;
       }
     );
+  };
+
+  const deleteItem = (id) => {
+    projectFirestore
+      .collection("category")
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
   };
 
   return (
@@ -236,6 +252,7 @@ export default function CategoryAdmin() {
                                 type="file"
                                 class="form-control"
                                 onChange={handleChange}
+                                ref={imageInputRef}
                               />
                             </div>
                           </div>
@@ -299,16 +316,26 @@ export default function CategoryAdmin() {
                                 {doc.description}
                               </a> */}
                             </div>
-                            {/* <div class="col-auto ms-auto">
-                              <select
+                            <div class="col-auto ms-auto">
+                              {user ? (
+                                <button
+                                  onClick={() => {
+                                    deleteItem(doc.id);
+                                  }}
+                                  className="btn btn-xs btn-rounded-circle btn-danger"
+                                >
+                                  <i className="fe fe-x"></i>
+                                </button>
+                              ) : null}
+                              {/* <select
                                 class="form-select form-select-xs"
                                 data-choices
                               >
                                 <option selected>Admin</option>
                                 <option>Staff</option>
                                 <option>Custom</option>
-                              </select>
-                            </div> */}
+                              </select> */}
+                            </div>
                           </div>
                         </div>
                       ))}

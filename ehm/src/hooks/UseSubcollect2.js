@@ -42,7 +42,7 @@ export default function UseSubcollect2() {
               console.log("error", error);
             });
         });
-        setCategoryData(fetchCategory)
+        setCategoryData(fetchCategory);
       })
       .catch((error) => {
         console.log(error);
