@@ -191,6 +191,9 @@ export default function Navbar() {
                             {/* Heading */}
                             {/* <h6 className="dropdown-header"></h6> */}
                             {/* List */}
+                            <Link className="dropdown-item" to="/intro">
+                              Introduction
+                            </Link>
                             <Link className="dropdown-item" to="/about">
                               About
                             </Link>

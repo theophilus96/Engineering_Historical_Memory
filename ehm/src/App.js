@@ -17,6 +17,7 @@ import AboutPage from "./pages/AboutPage";
 import TermPage from "./pages/TermPage";
 import CreditsPage from "./pages/CreditsPage";
 import ContactPage from "./pages/ContactPage";
+import IntroPage from "./pages/IntroPage";
 //articles
 import Framauro from "./articles/Framauro";
 //research Team
@@ -73,6 +74,7 @@ function App() {
           <Route exact path="/term" component={TermPage} />
           <Route exact path="/credits" component={CreditsPage} />
           <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/intro" component={IntroPage} />
           <Route exact path="/admin/category" component={CategoryAdmin} />
           <Route exact path="/admin/article" component={ArticleAdmin} />
           <Route exact path="/admin/user" component={UserAdmin} />
