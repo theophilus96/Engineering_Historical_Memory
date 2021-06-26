@@ -39,7 +39,7 @@ export default function CategoryAdmin() {
     //remove spaces in the category name
     let str = categoryName.replace(/\s/g, "");
 
-    const storageRef = projectStorage.ref(`"images/"${str}/` + file.name);
+    const storageRef = projectStorage.ref(`images/${str}/` + file.name);
     const collectionRef = projectFirestore.collection("category");
 
     storageRef.put(file).on(

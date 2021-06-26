@@ -519,7 +519,7 @@ export default function IntroDescription() {
       </section>
       <section>
         <div class="container">
-          <div class="row justify-content-between align-items-center">
+          <div class="row justify-content-between align-items-center pb-md-12">
             <div class="col-12 col-md-6 col-lg-5 order-md-2">
               <div class="d-flex flex-column w-md-130 mb-6 mb-md-0">
                 <img
@@ -558,6 +558,11 @@ export default function IntroDescription() {
                 Free access to primary historical sources can foster peace
                 through intercultural understanding and tolerance.
               </p>
+
+              <a class="fw-bold text-decoration-none" href="#!">
+                Support EHM for free access to primary historical sources.{" "}
+                <i class="fe fe-arrow-right ms-3"></i>
+              </a>
             </div>
           </div>
         </div>

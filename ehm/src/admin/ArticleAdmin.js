@@ -1,16 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 import UseSubcollect2 from "../hooks/UseSubcollect2";
+import useFirestore from "../hooks/useFirestore";
 
 export default function ArticleAdmin() {
+  const { docs } = useFirestore("category");
   const [{ user }, dispatch] = useStateValue();
   const [userName, setUserName] = useState("");
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(false);
   const [navList, setNavList] = useState(null);
+  const [category, setCategory] = useState("");
+  const [articleName, setArticleName] = useState("");
+  const [articleDescription, setArticleDescription] = useState("");
+  const [articleCitation, setArticleCitation] = useState("");
+  const [articleLink, setArticleLink] = useState("");
+
+  //storage
+  const [file, setFile] = useState(null);
+  const [url, setURL] = useState("");
+  const imageInputRef = useRef();
+
   const { article, categoryData } = UseSubcollect2();
   var person = auth.currentUser;
+
+  function handleChange(e) {
+    setFile(e.target.files[0]);
+  }
 
   function onMouseEnter(e) {
     e.stopPropagation();
@@ -100,52 +117,6 @@ export default function ArticleAdmin() {
               )}
             </div>
           </div>
-
-          {/* {Array.isArray(doc.array) && doc.array.length === 0 ? (
-            ""
-          ) : (
-            <div className="list-group">
-              {doc.array &&
-                doc.array.map((articleDoc) => {
-                  return (
-                    <div class="list-group-item" key={articleDoc.id}>
-                      <div class="row align-items-center">
-                        <div class="col-auto">
-                          <div class="avatar avatar-xl">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src={
-                                articleDoc.image
-                                  ? articleDoc.image
-                                  : "https://jejuhydrofarms.com/wp-content/uploads/2020/05/blank-profile-picture-973460_1280.png"
-                              }
-                              alt="..."
-                            />
-                          </div>
-                        </div>
-                        <div class="col-6 ms-n5">
-                          <p class="mb-0">{articleDoc.name}</p>
-
-                          <a
-                            class="d-block small text-truncate text-gray-700"
-                            href="mailto:ab.hadley@company.com"
-                          >
-                            {articleDoc.description}
-                          </a>
-
-                          <a
-                            class="d-block small text-truncate text-gray-700"
-                            href="mailto:ab.hadley@company.com"
-                          >
-                            {doc.citation}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-          )} */}
         </div>
       ));
     setNavList(response);
@@ -305,7 +276,11 @@ export default function ArticleAdmin() {
                                 <div class="avatar avatar-xl">
                                   <img
                                     class="avatar-img rounded-circle"
-                                    src="assets/img/avatars/avatar-1.jpg"
+                                    src={
+                                      file
+                                        ? URL.createObjectURL(file)
+                                        : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSalEj8tnk7AywBgsPErBHh2_8vFwc2yZty-mqmzy3t6pP_lN3WnokkH8ghoeFPZ13cs3g&usqp=CAU"
+                                    }
                                     alt="..."
                                   />
                                 </div>
@@ -318,24 +293,26 @@ export default function ArticleAdmin() {
                                 </small>
                               </div>
                               <div class="col-12 col-md-auto">
-                                <button class="btn btn-xs w-100 mt-5 mt-md-0 btn-EasternBlue ">
-                                  Upload
-                                </button>
+                                <input
+                                  type="file"
+                                  class="form-control"
+                                  onChange={handleChange}
+                                  ref={imageInputRef}
+                                />
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="col-12 mb-6">
+                      <div class="col-12 mb-4">
                         <div class="list-group ">
                           <div class="list-group-item">
                             <div class="row align-items-center">
                               <div class="col">
-                                <p class="mb-0">Public Profile</p>
+                                <p class="mb-0">Status</p>
 
                                 <small class="text-gray-700">
-                                  Making your profile public means anyone can
-                                  see your information.
+                                  {checked ? "Active" : "Inactive"}
                                 </small>
                               </div>
                               <div class="col-auto">
@@ -353,9 +330,60 @@ export default function ArticleAdmin() {
                         </div>
                       </div>
 
+                      <div className="col-12 mb-6">
+                        <div class="list-group ">
+                          <div class="list-group-item">
+                            <div class="row align-items-center">
+                              <label className="form-label" for="applyEmail">
+                                Category
+                              </label>
+                              {/* <input
+                          className="form-control"
+                          placeholder="Company"
+                          value={company}
+                          name="company"
+                          onChange={(e) => setCompany(e.currentTarget.value)}
+                          type="text"
+                        ></input> */}
+                              <div class="dropdown me-1 mb-1">
+                                <button
+                                  class="btn btn-EasternBlue dropdown-toggle"
+                                  type="button"
+                                  id="dropdownMenuButtonTwo"
+                                  data-bs-toggle="dropdown"
+                                  aria-haspopup="true"
+                                  aria-expanded="false"
+                                >
+                                  {category ? category : "Select Category"}
+                                </button>
+                                <div
+                                  class="dropdown-menu"
+                                  aria-labelledby="dropdownMenuButtonTwo"
+                                  style={{ margin: 0 }}
+                                >
+                                  {docs &&
+                                    docs.map((doc) => (
+                                      <a
+                                        class="dropdown-item"
+                                        href="#!"
+                                        onClick={(e) => {
+                                          setCategory(doc.id);
+                                        }}
+                                        value={doc.name}
+                                      >
+                                        {doc.name}
+                                      </a>
+                                    ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-12 col-md-auto">
                         <button class="btn w-100 btn-EasternBlue" type="submit">
-                          Save changes
+                          Submit
                         </button>
                       </div>
                     </div>
