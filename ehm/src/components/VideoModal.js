@@ -21,7 +21,7 @@ export default function VideoModal() {
     //     clipRule="evenodd"
     //   ></path>
     // </svg>
-    <button className="btn btn-sm btn-black">skip intro</button>
+    <a className="btn btn-sm btn-black">skip intro</a>
   );
 
   return (

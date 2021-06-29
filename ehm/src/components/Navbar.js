@@ -17,9 +17,7 @@ export default function Navbar() {
   const { docs } = useFirestore("category");
 
   var person = auth.currentUser;
-
-  console.log("Docs from navbar", docs);
-
+  //get current user
   const { article, categoryData } = UseSubcollect2();
 
   useEffect(() => {
@@ -69,23 +67,18 @@ export default function Navbar() {
       ));
     setNavList(response);
 
-    // if (user) {
-    //   projectFirestore
-    //     .collection("users")
-    //     .doc(user.uid)
-    //     .onSnapshot(
-    //       {
-    //         // Listen for document metadata changes
-    //         includeMetadataChanges: true,
-    //       },
-    //       (doc) =>
-    //         console.log(
-    //           "user documents"
-    //           // doc.data().name,
-    //           // setUserName(doc.data().name)
-    //         )
-    //     );
-    // }
+    if (user) {
+      projectFirestore
+        .collection("users")
+        .doc(user.uid)
+        .onSnapshot(
+          {
+            // Listen for document metadata changes
+            includeMetadataChanges: true,
+          },
+          (doc) => setUserName(doc.data().name)
+        );
+    }
   }, [categoryData.length]);
 
   const handleAuthentication = () => {
@@ -148,7 +141,7 @@ export default function Navbar() {
                   className="nav-link dropdown-toggle"
                   id="navbarAccount"
                   data-bs-toggle="dropdown"
-                  href="#"
+                  to="#"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
@@ -206,6 +199,20 @@ export default function Navbar() {
                             <Link className="dropdown-item" to="/contact">
                               Contact us
                             </Link>
+                            {user &&
+                            person &&
+                            person.email === "test+1@gmail.com" ? (
+                              <Link
+                                className="dropdown-item"
+                                to="/admin/category"
+                              >
+                                <p className="dropdown-item-text-admin">
+                                  Admin
+                                </p>
+                              </Link>
+                            ) : (
+                              ""
+                            )}
                           </div>
                         </div>{" "}
                         {/* / .row */}
@@ -215,49 +222,6 @@ export default function Navbar() {
                   {/* / .row */}
                 </div>
               </li>
-              {/* <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  id="navbarDocumentation"
-                  data-bs-toggle="dropdown"
-                  href="#"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Contacts
-                </a>
-                <div
-                  className="dropdown-menu dropdown-menu-md"
-                  aria-labelledby="navbarDocumentation"
-                >
-                  <div className="list-group list-group-flush">
-                    <a className="list-group-item" href="/contact">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g fill="none" fillRule="evenodd">
-                          <path d="M0 0h24v24H0z"></path>
-                          <path
-                            d="M11.915 14.143l2.204-2.204a2 2 0 00.375-2.309l-.125-.25a2 2 0 01.374-2.308l2.733-2.733a.5.5 0 01.8.13l1.105 2.208a4.387 4.387 0 01-.822 5.064l-5.999 6a5.427 5.427 0 01-5.554 1.31l-2.414-.805a.5.5 0 01-.195-.828l2.65-2.65a2 2 0 012.31-.375l.25.124a2 2 0 002.308-.374z"
-                            fill="#335EEA"
-                          ></path>
-                        </g>
-                      </svg>
-                      <div className="ms-4">
-                        <h6 className="fw-bold text-uppercase text-primary mb-0">
-                          Contact
-                        </h6>
-                        <p className="fs-sm text-gray-700 mb-0">
-                          Let us help you
-                        </p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </li> */}
               <li className="nav-item">
                 <Link className="nav-link" to={user ? "#" : "#"}>
                   {!user ? "" : userName}

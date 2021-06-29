@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../firebase/config";
+import { auth, projectFirestore, projectStorage } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 import UseSubcollect2 from "../hooks/UseSubcollect2";
 import useFirestore from "../hooks/useFirestore";
@@ -11,7 +11,9 @@ export default function ArticleAdmin() {
   const [userName, setUserName] = useState("");
   const [checked, setChecked] = useState(false);
   const [navList, setNavList] = useState(null);
-  const [category, setCategory] = useState("");
+  const [categoryID, setCategoryID] = useState("");
+  const [categoryName, setCategoryName] = useState("");
+
   const [articleName, setArticleName] = useState("");
   const [articleDescription, setArticleDescription] = useState("");
   const [articleCitation, setArticleCitation] = useState("");
@@ -42,18 +44,13 @@ export default function ArticleAdmin() {
     let response = () =>
       categoryData &&
       categoryData.map((doc) => (
-        <div className="accordion-item" key={doc.id}>
-          {/* <Link
-            className="dropdown-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            to="#"
-            onClick={onMouseEnter}
-          >
-            {doc.name}
-          </Link> */}
-          <h2 class="accordion-header" id={"flush-heading" + doc.id}>
+        <div
+          className="accordion-item panel-turquoise"
+          key={doc.id}
+        >
+          <h2 className="accordion-header" id={"flush-heading" + doc.id}>
             <button
-              class="accordion-button collapsed"
+              className="accordion-button collapsed"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target={"#flush-collapse" + doc.id}
@@ -65,11 +62,11 @@ export default function ArticleAdmin() {
           </h2>
           <div
             id={"flush-collapse" + doc.id}
-            class="accordion-collapse collapse"
+            className="accordion-collapse collapse"
             aria-labelledby={"flush-heading" + doc.id}
             data-bs-parent="#accordionFlushExample"
           >
-            <div class="accordion-body">
+            <div className="accordion-body">
               {Array.isArray(doc.array) && doc.array.length === 0 ? (
                 ""
               ) : (
@@ -77,37 +74,56 @@ export default function ArticleAdmin() {
                   {doc.array &&
                     doc.array.map((articleDoc) => {
                       return (
-                        <div class="list-group-item" key={articleDoc.id}>
-                          <div class="row align-items-center">
-                            <div class="col-auto">
-                              <div class="avatar avatar-xl">
-                                <img
-                                  class="avatar-img rounded-circle"
-                                  src={
-                                    articleDoc.image
-                                      ? articleDoc.image
-                                      : "https://jejuhydrofarms.com/wp-content/uploads/2020/05/blank-profile-picture-973460_1280.png"
-                                  }
-                                  alt="..."
-                                />
+                        <div className="list-group-item" key={articleDoc.id}>
+                          <div className="row align-items-center">
+                            <div className="col-auto">
+                              <div
+                                className={
+                                  "avatar avatar-xxl " +
+                                  (articleDoc.active
+                                    ? "avatar-online"
+                                    : "avatar-offline")
+                                }
+                              >
+                                <Link
+                                  to={`/category/${doc.id}/article/${articleDoc.id}`}
+                                >
+                                  <img
+                                    className="avatar-img rounded-circle"
+                                    src={
+                                      articleDoc.image
+                                        ? articleDoc.image
+                                        : "https://jejuhydrofarms.com/wp-content/uploads/2020/05/blank-profile-picture-973460_1280.png"
+                                    }
+                                    alt="..."
+                                  />
+                                </Link>
                               </div>
                             </div>
-                            <div class="col-10 ms-n5">
-                              <p class="mb-0">{articleDoc.name}</p>
-
-                              <a
-                                class="d-block small text-gray-700"
-                                href="mailto:"
-                              >
+                            <div className="col-8 ms-n5">
+                              <p className="mb-0">{articleDoc.name}</p>
+                              <p className="d-block small text-gray-700">
                                 Description: {articleDoc.description}
-                              </a>
-
-                              <a
-                                class="d-block small text-gray-700"
+                              </p>
+                              <p
+                                className="d-block small text-gray-700"
                                 href="mailto:"
                               >
                                 Citation: {articleDoc.citation}
-                              </a>
+                              </p>
+                            </div>
+
+                            <div className="col-auto ms-auto">
+                              {user ? (
+                                <button
+                                  onClick={() => {
+                                    deleteItem(doc.id, articleDoc.id);
+                                  }}
+                                  className="btn btn-xs btn-rounded-circle btn-danger"
+                                >
+                                  <i className="fe fe-x"></i>
+                                </button>
+                              ) : null}
                             </div>
                           </div>
                         </div>
@@ -122,25 +138,96 @@ export default function ArticleAdmin() {
     setNavList(response);
   }, [person, categoryData.length]);
 
+  const onSubmit = (e) => {
+    /* 
+    preventDefault is important because it
+    prevents the whole page from reloading
+    */
+    e.preventDefault();
+    //remove spaces in the category name
+    let categoryString = categoryName.replace(/\s/g, "");
+    let articleString = articleName.replace(/\s/g, "");
+
+    const storageRef = projectStorage.ref(
+      `images/${categoryString}/${articleString}/` + file.name
+    );
+    const collectionRef = projectFirestore
+      .collection("category")
+      .doc(categoryID)
+      .collection("Article");
+
+    storageRef.put(file).on(
+      "state_changed",
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        console.log("progress bar", percentage);
+      },
+      (err) => {
+        console.log(err);
+      },
+      async () => {
+        const url = await storageRef.getDownloadURL();
+        //   const createdAt = timestamp();
+        const newArticleAdded = await collectionRef.add({
+          name: articleName,
+          description: articleDescription,
+          citation: articleCitation,
+          link: articleLink,
+          image: url,
+          active: checked,
+        });
+        console.log("the new article: ", newArticleAdded);
+
+        // collectionRef.doc(newCategoryAdded.id).collection("project").add({
+        //   image: url,
+        // });
+        setArticleName("");
+        setArticleDescription("");
+        setArticleCitation("");
+        setArticleLink("");
+        setChecked(false);
+        setCategoryName("");
+        setFile(null);
+        setURL("");
+        if (imageInputRef) imageInputRef.current.value = null;
+      }
+    );
+  };
+
+  const deleteItem = (catID, articleID) => {
+    projectFirestore
+      .collection("category")
+      .doc(catID)
+      .collection("Article")
+      .doc(articleID)
+      .delete()
+      .then(() => {
+        console.log("Document successfully deleted!");
+      })
+      .catch((error) => {
+        console.error("Error removing document: ", error);
+      });
+  };
+
   return (
     <div>
-      <nav class="bg-Genoa-dark d-md-none">
-        <div class="container-md">
-          <div class="row align-items-center">
-            <div class="col">
-              <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                  <span class="text-white">Account</span>
+      <nav className="bg-Genoa-dark d-md-none">
+        <div className="container-md">
+          <div className="row align-items-center">
+            <div className="col">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <span className="text-white">Account</span>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                  <span class="text-white">General</span>
+                <li className="breadcrumb-item active" aria-current="page">
+                  <span className="text-white">General</span>
                 </li>
               </ol>
             </div>
-            <div class="col-auto">
-              <div class="navbar-dark">
+            <div className="col-auto">
+              <div className="navbar-dark">
                 <button
-                  class="navbar-toggler"
+                  className="navbar-toggler"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#sidenavCollapse"
@@ -148,7 +235,7 @@ export default function ArticleAdmin() {
                   aria-expanded="false"
                   aria-label="Toggle navigation"
                 >
-                  <span class="navbar-toggler-icon"></span>
+                  <span className="navbar-toggler-icon"></span>
                 </button>
               </div>
             </div>
@@ -156,15 +243,15 @@ export default function ArticleAdmin() {
         </div>
       </nav>
 
-      <header class="bg-Genoa-dark pt-9 pb-11 d-none d-md-block">
-        <div class="container-md">
-          <div class="row align-items-center">
-            <div class="col">
-              <h1 class="fw-bold text-white mb-2">Admin Settings</h1>
+      <header className="bg-Genoa-dark pt-9 pb-11 d-none d-md-block">
+        <div className="container-md">
+          <div className="row align-items-center">
+            <div className="col">
+              <h1 className="fw-bold text-white mb-2">Admin Settings</h1>
 
-              <p class="fs-lg text-white-75 mb-0">
+              <p className="fs-lg text-white-75 mb-0">
                 Admin{" "}
-                <a class="text-reset" href="mailto:dhgamache@gmail.com">
+                <a className="text-reset" href="mailto:dhgamache@gmail.com">
                   {!user ? "" : userName}
                 </a>
               </p>
@@ -173,33 +260,41 @@ export default function ArticleAdmin() {
         </div>
       </header>
 
-      <main class="pb-8 pb-md-11 mt-md-n6">
-        <div class="container-md">
-          <div class="row">
-            <div class="col-12 col-md-3">
-              <div class="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg">
-                <div class="collapse d-md-block" id="sidenavCollapse">
-                  <div class="card-body">
-                    <h6 class="fw-bold text-uppercase mb-3">Applications</h6>
+      <main className="pb-8 pb-md-11 mt-md-n6">
+        <div className="container-md">
+          <div className="row">
+            <div className="col-12 col-md-3">
+              <div className="card card-bleed border-bottom border-bottom-md-0 shadow-light-lg">
+                <div className="collapse d-md-block" id="sidenavCollapse">
+                  <div className="card-body">
+                    <h6 className="fw-bold text-uppercase mb-3">
+                      Applications
+                    </h6>
 
-                    <ul class="card-list list text-gray-700 mb-6">
-                      <li class="list-item">
-                        <Link class="list-link text-reset" to="/admin/category">
+                    <ul className="card-list list text-gray-700 mb-6">
+                      <li className="list-item">
+                        <Link
+                          className="list-link text-reset"
+                          to="/admin/category"
+                        >
                           Category
                         </Link>
                       </li>
-                      <li class="list-item active">
-                        <Link class="list-link text-reset" to="/admin/article">
+                      <li className="list-item active">
+                        <Link
+                          className="list-link text-reset"
+                          to="/admin/article"
+                        >
                           Articles
                         </Link>
                       </li>
                     </ul>
 
-                    <h6 class="fw-bold text-uppercase mb-3">Others</h6>
+                    <h6 className="fw-bold text-uppercase mb-3">Others</h6>
 
-                    <ul class="card-list list text-gray-700 mb-0">
-                      <li class="list-item">
-                        <Link class="list-link text-reset" to="/admin/user">
+                    <ul className="card-list list text-gray-700 mb-0">
+                      <li className="list-item">
+                        <Link className="list-link text-reset" to="/admin/user">
                           Users
                         </Link>
                       </li>
@@ -208,74 +303,88 @@ export default function ArticleAdmin() {
                 </div>
               </div>
             </div>
-            <div class="col-12 col-md-9">
-              <div class="card card-bleed shadow-light-lg mb-6">
-                <div class="card-header">
-                  <h4 class="mb-0">Add Article</h4>
+            <div className="col-12 col-md-9">
+              <div className="card card-bleed shadow-light-lg mb-6">
+                <div className="card-header">
+                  <h4 className="mb-0">Add Article</h4>
                 </div>
-                <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label class="form-label" for="name">
+                <div className="card-body">
+                  <form onSubmit={onSubmit}>
+                    <div className="row">
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label className="form-label" for="name">
                             Name
                           </label>
                           <input
-                            class="form-control"
+                            className="form-control"
                             id="name"
                             type="text"
                             placeholder="Article name"
+                            value={articleName}
+                            name="Article Name"
+                            onChange={(e) =>
+                              setArticleName(e.currentTarget.value)
+                            }
                           />
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label class="form-label">Description</label>
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label className="form-label">Description</label>
                           <input
                             className="form-control"
                             placeholder="Article description"
-                            value=""
-                            name="longDesc"
                             type="text"
                             rows="5"
+                            value={articleDescription}
+                            name="Article Description"
+                            onChange={(e) =>
+                              setArticleDescription(e.currentTarget.value)
+                            }
                           ></input>
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label class="form-label">Citation</label>
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label className="form-label">Citation</label>
                           <input
                             className="form-control"
                             placeholder="Cite the source of this article ..."
-                            value=""
-                            name="longDesc"
                             type="text"
                             rows="5"
+                            value={articleCitation}
+                            name="Article citation"
+                            onChange={(e) =>
+                              setArticleCitation(e.currentTarget.value)
+                            }
                           ></input>
                         </div>
                       </div>
-                      <div class="col-12">
-                        <div class="form-group">
-                          <label class="form-label">Link</label>
+                      <div className="col-12">
+                        <div className="form-group">
+                          <label className="form-label">Link</label>
                           <input
                             className="form-control"
                             placeholder="https://engineeringhistoricalmemory.com/something.php ..."
-                            value=""
-                            name="longDesc"
                             type="text"
                             rows="5"
+                            value={articleLink}
+                            name="Article link"
+                            onChange={(e) =>
+                              setArticleLink(e.currentTarget.value)
+                            }
                           ></input>
                         </div>
                       </div>
-                      <div class="col-12 mb-4">
-                        <div class="list-group">
-                          <div class="list-group-item">
-                            <div class="row align-items-center">
-                              <div class="col-auto">
-                                <div class="avatar avatar-xl">
+                      <div className="col-12 mb-4">
+                        <div className="list-group">
+                          <div className="list-group-item">
+                            <div className="row align-items-center">
+                              <div className="col-auto">
+                                <div className="avatar avatar-xl">
                                   <img
-                                    class="avatar-img rounded-circle"
+                                    className="avatar-img rounded-circle"
                                     src={
                                       file
                                         ? URL.createObjectURL(file)
@@ -285,17 +394,17 @@ export default function ArticleAdmin() {
                                   />
                                 </div>
                               </div>
-                              <div class="col ms-n5">
-                                <p class="mb-0">Category image</p>
+                              <div className="col ms-n5">
+                                <p className="mb-0">Category image</p>
 
-                                <small class="text-gray-700">
+                                <small className="text-gray-700">
                                   PNG or JPG no larger than 1000px
                                 </small>
                               </div>
-                              <div class="col-12 col-md-auto">
+                              <div className="col-12 col-md-auto">
                                 <input
                                   type="file"
-                                  class="form-control"
+                                  className="form-control"
                                   onChange={handleChange}
                                   ref={imageInputRef}
                                 />
@@ -304,19 +413,19 @@ export default function ArticleAdmin() {
                           </div>
                         </div>
                       </div>
-                      <div class="col-12 mb-4">
-                        <div class="list-group ">
-                          <div class="list-group-item">
-                            <div class="row align-items-center">
-                              <div class="col">
-                                <p class="mb-0">Status</p>
+                      <div className="col-12 mb-4">
+                        <div className="list-group ">
+                          <div className="list-group-item">
+                            <div className="row align-items-center">
+                              <div className="col">
+                                <p className="mb-0">Status</p>
 
-                                <small class="text-gray-700">
+                                <small className="text-gray-700">
                                   {checked ? "Active" : "Inactive"}
                                 </small>
                               </div>
-                              <div class="col-auto">
-                                <div class="form-check form-switch">
+                              <div className="col-auto">
+                                <div className="form-check form-switch">
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
@@ -331,9 +440,9 @@ export default function ArticleAdmin() {
                       </div>
 
                       <div className="col-12 mb-6">
-                        <div class="list-group ">
-                          <div class="list-group-item">
-                            <div class="row align-items-center">
+                        <div className="list-group ">
+                          <div className="list-group-item">
+                            <div className="row align-items-center">
                               <label className="form-label" for="applyEmail">
                                 Category
                               </label>
@@ -345,29 +454,32 @@ export default function ArticleAdmin() {
                           onChange={(e) => setCompany(e.currentTarget.value)}
                           type="text"
                         ></input> */}
-                              <div class="dropdown me-1 mb-1">
+                              <div className="dropdown me-1 mb-1">
                                 <button
-                                  class="btn btn-EasternBlue dropdown-toggle"
+                                  className="btn btn-EasternBlue dropdown-toggle"
                                   type="button"
                                   id="dropdownMenuButtonTwo"
                                   data-bs-toggle="dropdown"
                                   aria-haspopup="true"
                                   aria-expanded="false"
                                 >
-                                  {category ? category : "Select Category"}
+                                  {categoryName
+                                    ? categoryName
+                                    : "Select Category"}
                                 </button>
                                 <div
-                                  class="dropdown-menu"
+                                  className="dropdown-menu"
                                   aria-labelledby="dropdownMenuButtonTwo"
                                   style={{ margin: 0 }}
                                 >
                                   {docs &&
                                     docs.map((doc) => (
                                       <a
-                                        class="dropdown-item"
+                                        className="dropdown-item"
                                         href="#!"
                                         onClick={(e) => {
-                                          setCategory(doc.id);
+                                          setCategoryID(doc.id);
+                                          setCategoryName(doc.name);
                                         }}
                                         value={doc.name}
                                       >
@@ -381,8 +493,11 @@ export default function ArticleAdmin() {
                         </div>
                       </div>
 
-                      <div class="col-12 col-md-auto">
-                        <button class="btn w-100 btn-EasternBlue" type="submit">
+                      <div className="col-12 col-md-auto">
+                        <button
+                          className="btn w-100 btn-EasternBlue"
+                          type="submit"
+                        >
                           Submit
                         </button>
                       </div>
@@ -390,10 +505,10 @@ export default function ArticleAdmin() {
                   </form>
                 </div>
               </div>
-              <div class="card card-bleed shadow-light-lg mb-6">
-                <div class="card card-bleed shadow-light-lg mb-6">
-                  <div class="card-header">
-                    <h4 class="mb-0">Categories and Articles</h4>
+              <div className="card card-bleed shadow-light-lg mb-6">
+                <div className="card card-bleed shadow-light-lg mb-6">
+                  <div className="card-header">
+                    <h4 className="mb-0">Categories and Articles</h4>
                   </div>
                   <ul
                     className="accordion accordion-flush"

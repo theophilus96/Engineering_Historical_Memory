@@ -35,7 +35,6 @@ function Carousel() {
   // );
 
   const { docs } = useFirestore("category");
-  console.log(docs);
 
   var settings = {
     dots: true,

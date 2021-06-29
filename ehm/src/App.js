@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./css/theme.css";
 import "./css/libs.css";
 import AOS from "aos";
@@ -36,7 +35,7 @@ function App() {
 
   useEffect(() => {
     auth.onAuthStateChanged((authUser) => {
-      console.log("The user is :", authUser);
+      // console.log("The user is :", authUser);
 
       if (authUser) {
         dispatch({
