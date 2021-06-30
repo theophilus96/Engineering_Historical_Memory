@@ -24,7 +24,7 @@ export default function IntroVideo() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              All about Engineering Historical Memory
+              Engineering Historical Memory
             </p>
 
             {/* <p class="mb-7 mb-md-9" data-aos="fade-up" data-aos-delay="150">
