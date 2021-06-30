@@ -8,10 +8,7 @@ import { useStateValue } from "../state/StateProvider";
 export default function ListArticles(doc) {
   // console.log("doc for list articles", doc);
   const { CatId } = useParams();
-  console.log("list category =>  id = ", CatId);
-  console.log("list category => doc = ", doc);
   const { docs } = useFirestore("category/" + CatId + "/Article");
-  console.log("list category => ", docs);
 
   const [{ user }] = useStateValue();
 

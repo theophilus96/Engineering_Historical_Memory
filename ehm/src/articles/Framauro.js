@@ -15,10 +15,6 @@ export default function Framauro(doc) {
 
   const [articleData, setarticleData] = useState("");
   const { CatId, id } = useParams();
-  console.log("id = ", id);
-  console.log("CatID = ", CatId);
-
-  console.log("doc = ", doc);
 
   var docRef = projectFirestore
     .collection("category")
@@ -31,7 +27,6 @@ export default function Framauro(doc) {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
           setarticleData(doc.data());
         } else {
           // doc.data() will be undefined in this case
@@ -43,8 +38,6 @@ export default function Framauro(doc) {
       });
   }, []);
 
-  console.log("articleData = ", articleData);
-  console.log("articleData = ", articleData.link);
   //  <div id="background"></div>
   //       <div class="page_container">
   //         <div class="wrapper">

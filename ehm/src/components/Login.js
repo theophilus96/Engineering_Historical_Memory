@@ -64,12 +64,9 @@ export default function Login() {
       .then((result) => {
         /** @type {firebase.auth.OAuthCredential} */
         var credential = result.credential;
-        console.log("credential from facebook", credential);
         var user = result.user;
-        console.log("user from facebook", user);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         var accessToken = credential.accessToken;
-        console.log("token from facebook", accessToken);
         logUser(user.uid, user.displayName, user.photoURL);
         // ...
         history.push("/");
@@ -77,15 +74,11 @@ export default function Login() {
       .catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
-        console.log("errorCode from facebook", errorCode);
         var errorMessage = error.message;
-        console.log("errorMessage from facebook", errorMessage);
         // The email of the user's account used.
         var email = error.email;
-        console.log("error email from facebook", email);
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        console.log("error credential from facebook", credential);
         // ...
       });
   };
@@ -105,7 +98,6 @@ export default function Login() {
 
         // The signed-in user info.
         var user = result.user;
-        console.log("user from twitter", user);
         logUser(user.uid, user.displayName, user.photoURL);
 
         // ...
@@ -114,15 +106,11 @@ export default function Login() {
       .catch((error) => {
         // Handle Errors here.
         var errorCode = error.code;
-        console.log("errorCode from twitter", errorCode);
         var errorMessage = error.message;
-        console.log("errorMessage from twitter", errorMessage);
         // The email of the user's account used.
         var email = error.email;
-        console.log("error email from twitter", email);
         // The firebase.auth.AuthCredential type that was used.
         var credential = error.credential;
-        console.log("error credential from twitter", credential);
         // ...
       });
   };
@@ -192,7 +180,7 @@ export default function Login() {
               >
                 <img
                   className="google-icon"
-                  src="https://www.pngitem.com/pimgs/m/118-1181708_google-icon-google-logo-design-flaws-hd-png.png"
+                  src="https://image.flaticon.com/icons/png/512/281/281764.png"
                   alt="google icon"
                 />
               </button>

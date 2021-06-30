@@ -59,8 +59,7 @@ export default function CategoryAdmin() {
           description: categoryDescription,
           image: url,
         });
-        console.log("the new category: ", newCategoryAdded);
-        console.log("new category: id: ", newCategoryAdded.id);
+        console.log("New category: ", newCategoryAdded);
 
         // collectionRef.doc(newCategoryAdded.id).collection("project").add({
         //   image: url,

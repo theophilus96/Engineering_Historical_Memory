@@ -5,8 +5,6 @@ import { projectFirestore } from "../firebase/config";
 export default function ListWelcome(doc) {
   const [categoryData, setacategoryData] = useState("");
   const { CatId } = useParams();
-  console.log("id = ", CatId);
-  console.log("doc = ", doc);
 
   var docRef = projectFirestore.collection("category").doc(CatId);
 
@@ -15,7 +13,6 @@ export default function ListWelcome(doc) {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("Document data:", doc.data());
           setacategoryData(doc.data());
         } else {
           // doc.data() will be undefined in this case

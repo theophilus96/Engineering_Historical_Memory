@@ -110,14 +110,13 @@ function Carousel() {
             {docs &&
               docs.map((doc) => (
                 <div key={doc.id}>
-                  <Link to={`/category/${doc.id}`}>
                     <div
                       className="col-12 col-md-6 col-lg-4 d-flex"
                       style={{ width: "18rem" }}
                     >
-                      <a
+                      <Link
                         className="card mb-6 mb-lg-0 shadow-light-sm"
-                        href="#!"
+                        to={`/category/${doc.id}`}
                       >
                         <div className="card-zoom">
                           <img
@@ -144,9 +143,8 @@ function Carousel() {
 
                           <h4 className="mb-0">{doc.name}</h4>
                         </div>
-                      </a>
+                      </Link>
                     </div>
-                  </Link>
                 </div>
               ))}
           </Slider>

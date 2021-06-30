@@ -8,8 +8,6 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  console.log(user);
-
   const onSubmit = (e) => {
     e.preventDefault();
     projectFirestore
@@ -24,9 +22,6 @@ export default function Contact() {
           photoURL: user.photoURL,
           phoneNumber: user.phoneNumber,
         },
-      })
-      .then(() => {
-        console.log("Document successfully written!");
       })
       .then(() => setFullName(""), setEmail(""), setMessage(""));
   };
@@ -77,7 +72,10 @@ export default function Contact() {
                 className="btn btn-white btn-rounded-circle shadow mt-n11 mt-md-n13"
                 data-scroll
               >
-                <i className="fe fe-arrow-down" style={{ color: "#22a6a7" }}></i>
+                <i
+                  className="fe fe-arrow-down"
+                  style={{ color: "#22a6a7" }}
+                ></i>
               </a>
             </div>
           </div>

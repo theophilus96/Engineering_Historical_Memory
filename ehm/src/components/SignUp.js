@@ -17,7 +17,6 @@ export default function SignUp() {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((auth) => {
-        console.log("auth = ", auth.user.uid);
         if (auth) {
           logUser(auth.user.uid);
           history.push("/");
@@ -39,10 +38,6 @@ export default function SignUp() {
       .updateProfile({
         displayName: fullName,
       })
-      .then(function () {
-        // Update successful.
-        console.log("displayName = ", fullName);
-      })
       .catch(function (error) {
         // An error happened.
         console.log(error);
@@ -50,24 +45,20 @@ export default function SignUp() {
 
     user
       .updateEmail(email)
-      .then(function () {
-        // Update successful.
-        console.log("email = ", email);
-      })
       .catch(function (error) {
         console.log(error);
         // An error happened.
       });
 
-    if (user != null) {
-      user.providerData.forEach(function (profile) {
-        console.log("Sign-in provider: " + profile.providerId);
-        console.log("  Provider-specific UID: " + profile.uid);
-        console.log("  Name: " + profile.displayName);
-        console.log("  Email: " + profile.email);
-        console.log("  Photo URL: " + profile.photoURL);
-      });
-    }
+    // if (user != null) {
+    //   user.providerData.forEach(function (profile) {
+    //     console.log("Sign-in provider: " + profile.providerId);
+    //     console.log("  Provider-specific UID: " + profile.uid);
+    //     console.log("  Name: " + profile.displayName);
+    //     console.log("  Email: " + profile.email);
+    //     console.log("  Photo URL: " + profile.photoURL);
+    //   });
+    // }
 
     //ref.set(obj);  //or however you wish to update the node
   }

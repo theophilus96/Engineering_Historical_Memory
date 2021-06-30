@@ -176,7 +176,7 @@ export default function ArticleAdmin() {
           image: url,
           active: checked,
         });
-        console.log("the new article: ", newArticleAdded);
+        console.log("New article: ", newArticleAdded);
 
         // collectionRef.doc(newCategoryAdded.id).collection("project").add({
         //   image: url,
