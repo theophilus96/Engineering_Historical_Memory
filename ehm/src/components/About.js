@@ -11,7 +11,15 @@ export default function About() {
             <p className="fs-lg text-gray-700 mb-md-0">Updated 31/5/2021</p>
           </div>
           <div className="col-auto">
-            <a href="#!" className="btn btn-primary-soft">
+            <a
+              href="#!"
+              className="btn btn-primary-soft"
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  "Nanetti, A. About Engineering Historical Memory. Retrieved from https://engineeringhistoricalmemory.com/About.php (accessed on 2021-7-12)"
+                );
+              }}
+            >
               Cite
             </a>
           </div>
@@ -61,7 +69,9 @@ export default function About() {
                   Engineering Historical Memory, Founding Director of LIBER Lab
                 </p>
 
-                <h6 className="fw-bold text-uppercase text-gray-700 mb-2">Phone</h6>
+                <h6 className="fw-bold text-uppercase text-gray-700 mb-2">
+                  Phone
+                </h6>
 
                 <p className="fs-sm mb-5">
                   <a href="tel:555-123-4567" className="text-reset">
@@ -69,7 +79,9 @@ export default function About() {
                   </a>
                 </p>
 
-                <h6 className="fw-bold text-uppercase text-gray-700 mb-2">Email</h6>
+                <h6 className="fw-bold text-uppercase text-gray-700 mb-2">
+                  Email
+                </h6>
 
                 <p className="fs-sm mb-0">
                   <a href="mailto:support@goodthemes.co" className="text-reset">
@@ -313,7 +325,9 @@ export default function About() {
                 <li className="text-gray-800 mt-4">Librarians</li>
                 <li className="text-gray-800 mt-4">Archivists</li>
                 <li className="text-gray-800 mt-4">Museum curators</li>
-                <li className="text-gray-800 mt-4 mb-6 mb-md-8">General public</li>
+                <li className="text-gray-800 mt-4 mb-6 mb-md-8">
+                  General public
+                </li>
               </ul>
             </div>
 

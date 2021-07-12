@@ -4,6 +4,7 @@ import { auth, projectFirestore, projectStorage } from "../firebase/config";
 import { useStateValue } from "../state/StateProvider";
 import UseSubcollect2 from "../hooks/UseSubcollect2";
 import useFirestore from "../hooks/useFirestore";
+import TempIcon from "../icons/pinterest.svg";
 
 export default function ArticleAdmin() {
   const { docs } = useFirestore("category");
@@ -44,10 +45,7 @@ export default function ArticleAdmin() {
     let response = () =>
       categoryData &&
       categoryData.map((doc) => (
-        <div
-          className="accordion-item panel-turquoise"
-          key={doc.id}
-        >
+        <div className="accordion-item panel-turquoise" key={doc.id}>
           <h2 className="accordion-header" id={"flush-heading" + doc.id}>
             <button
               className="accordion-button collapsed"
@@ -145,12 +143,16 @@ export default function ArticleAdmin() {
     */
     e.preventDefault();
     //remove spaces in the category name
+
     let categoryString = categoryName.replace(/\s/g, "");
     let articleString = articleName.replace(/\s/g, "");
 
-    const storageRef = projectStorage.ref(
-      `images/${categoryString}/${articleString}/` + file.name
-    );
+    let storageRef =
+      Boolean(categoryString) && Boolean(articleString) && file
+        ? projectStorage.ref(
+            `images/${categoryString}/${articleString}/` + file.name
+          )
+        : projectStorage.ref(`images/` + TempIcon);
     const collectionRef = projectFirestore
       .collection("category")
       .doc(categoryID)
@@ -185,7 +187,6 @@ export default function ArticleAdmin() {
         setArticleDescription("");
         setArticleCitation("");
         setArticleLink("");
-        setChecked(false);
         setCategoryName("");
         setFile(null);
         setURL("");
@@ -430,7 +431,7 @@ export default function ArticleAdmin() {
                                     className="form-check-input"
                                     type="checkbox"
                                     id="switchOne"
-                                    onChange={() => setChecked(!checked)}
+                                    onClick={() => setChecked(!checked)}
                                   />
                                 </div>
                               </div>
